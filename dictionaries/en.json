@@ -1,0 +1,37 @@
+{
+	"signIn": {
+		"signInTitle": "Sign In",
+		"withEmail": "With email",
+		"email": "Email",
+		"password": "Password",
+		"forgotPassword": "Forgot Password ?",
+		"signIn": "Sign In",
+		"notAMemberYet": "Not a member yet ?",
+		"signUp": "Sign Up"
+	  },
+	  "signUp": {
+		"signUpTitle": "Sign Up",
+		"withEmail": "With email",
+		"email": "Email",
+		"password": "Password",
+		"repeatPassword": "Repeat Password",
+		"passwordText": "Use 8 or more characters with a mix of lowercase letters, uppercase letters, numbers & symbols.",
+		"terms": "I Accept the ",
+		"termsLink": "Terms and Conditions",
+		"signUp": "Sign Up",
+		"alreadyAMember": "Already have an account ?",
+		"signIn": "Sign In"
+	  },
+	  "validationTexts": {
+		"emailRequired": "Email is required",
+		"emailInvalid": "Invalid email",
+		"passwordRequired": "Password is required",
+		"passwordInvalid": "Invalid password",
+		"passwordsDontMatch": "Passwords don't match"
+	  },
+	  "links": {
+		"terms": "Terms",
+		"plans": "Plans",
+		"contact": "Contact Us"
+	  }
+}

@@ -1,9 +1,20 @@
+import LanguageSelectorMenu from "@/components/LanguageSelectorMenu";
 import Link from "next/link";
 import React from "react";
+import en from "@/dictionaries/en.json";
+import hu from "@/dictionaries/hu.json";
 
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+export default function AuthLayout({
+  children,
+  params: { lang },
+}: {
+  children: React.ReactNode;
+  params: { lang: string };
+}) {
+  const dict = lang === "en" ? en : hu;
+
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row w-screen bg-orange-400">
+    <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-orange-400">
       <div className="flex justify-center py-6 lg:py-0 px-20 lg:w-1/2 items-center">
         <h1>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia
@@ -18,21 +29,23 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             {children}
           </div>
           <div className="flex justify-between">
-            <div>Language: TODO</div>
-            <div className="flex flex-row">
+            <div>
+              <LanguageSelectorMenu lang={lang} />
+            </div>
+            <div className="flex flex-row flex-wrap">
               <div className="mx-1">
                 <Link className="link" href="/terms">
-                  Terms
+                  {dict.links.terms}
                 </Link>
               </div>
               <div className="mx-1">
                 <Link className="link" href="/plans">
-                  Plans
+                  {dict.links.plans}
                 </Link>
               </div>
               <div className="mx-1">
                 <Link className="link" href="/contact-us">
-                  Contact Us
+                  {dict.links.contact}
                 </Link>
               </div>
             </div>
@@ -41,6 +54,4 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
     </div>
   );
-};
-
-export default AuthLayout;
+}

@@ -1,0 +1,38 @@
+{
+	"signIn": {
+		"signInTitle": "Bejelentkezés",
+		"withEmail": "Email címmel",
+		"email": "Email",
+		"password": "Jelszó",
+		"forgotPassword": "Elfelejtett jelszó ?",
+		"signIn": "Belépés",
+		"notAMemberYet": "Nincs még regisztrálva ?",
+		"signUp": "Regisztráció"
+	  },
+	  "signUp": {
+		"signUpTitle": "Regisztráció",
+		"withEmail": "Email címmel",
+		"email": "Email",
+		"password": "Jelszó",
+		"repeatPassword": "Jelszó megerősítése",
+		"passwordText": "Használjon legalább 8 karaktert, egy számot, egy kisbetűt, egy nagybetűt és egy különleges karaktert.",
+		"terms": "Elfogadom a ",
+		"termsLink": "Felhasználási feltételeket",
+		"signUp": "Regisztráció",
+		"alreadyAMember": "Már van fiókja ?",
+		"signIn": "Belépés"
+	  },
+	  "validationTexts": {
+		"emailRequired": "Email cím megadása kötelező",
+		"emailInvalid": "Email cím formátuma nem megfelelő",
+		"passwordRequired": "Jelszó megadása kötelező",
+		"passwordInvalid": "Jelszó formátuma nem megfelelő",
+		"passwordsDontMatch": "A két jelszó nem egyezik"
+	  },
+	  "links": {
+		"terms": "Felhasználási feltételek",
+		"plans": "Tervek",
+		"contact": "Kapcsolat"
+	  }
+	  
+}
