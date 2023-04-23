@@ -1,1 +1,1 @@
-// profil elkeszitese nev, email, telefonszam
+// profil elkeszitese nev, email, telefonsz
