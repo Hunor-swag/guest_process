@@ -2,7 +2,7 @@
 
 import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import PwdStrengthIndicator from "@/components/PwdStrengthIndicator";
-import AuthInput from "@/components/AuthInput";
+import AuthInput from "@/components/auth/AuthInput";
 import {
   validateEmail,
   validatePassword,

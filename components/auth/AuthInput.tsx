@@ -12,7 +12,7 @@ type Props = {
   onBlur?: () => void;
 };
 
-const AuthInput = ({
+export default function AuthInput({
   onChange,
   errorMessage,
   className,
@@ -20,7 +20,7 @@ const AuthInput = ({
   type,
   placeholder,
   value,
-}: Props) => {
+}: Props) {
   return (
     <div className={className}>
       <input
@@ -34,6 +34,4 @@ const AuthInput = ({
       <span className="text-red-500 mt-1 ml-1 text-sm">{errorMessage}</span>
     </div>
   );
-};
-
-export default AuthInput;
+}

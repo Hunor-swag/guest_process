@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import AuthInput from "@/components/AuthInput";
+import AuthInput from "@/components/auth/AuthInput";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import PwdStrengthIndicator from "@/components/PwdStrengthIndicator";
 import { checkPasswordStrength } from "@/functions/checkPasswordStrength";
 
-const NewPassword = () => {
+export default function NewPassword() {
   const [password, setPassword] = useState<string>("");
   const [secondPassword, setSecondPassword] = useState<string>("");
   const [pwdStrength, setPwdStrength] = useState<number>(0);
@@ -87,6 +87,4 @@ const NewPassword = () => {
       </div>
     </form>
   );
-};
-
-export default NewPassword;
+}

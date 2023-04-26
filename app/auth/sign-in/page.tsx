@@ -3,22 +3,18 @@
 // egybol fokuszt kapjon az email mezo
 // ahol rosszul van kitoltve, fokuszt kap az a mezo piros kerettel
 
-import AuthInput from "@/components/AuthInput";
+import AuthInput from "@/components/auth/AuthInput";
 import Link from "next/link";
-import ErrorDialog from "@/components/ErrorDialog";
+import ErrorDialog from "@/components/auth/ErrorDialog";
 import { passwordEntered, validateEmail } from "@/functions/validations";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useDictionary } from "@/hooks/useDictionary";
 import en from "@/dictionaries/en.json";
 import hu from "@/dictionaries/hu.json";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
-function SignIn({ params: { lang } }: { params: { lang: string } }) {
-  const [dict, setDict] = useState(hu);
-
-  useEffect(() => {
-    if (lang === "en") {
-      setDict(en);
-    }
-  }, [lang]);
+export default function SignIn() {
+  const dict = useDictionary();
 
   const [values, setValues] = useState({
     email: "",
@@ -124,4 +120,3 @@ function SignIn({ params: { lang } }: { params: { lang: string } }) {
     </form>
   );
 }
-export default SignIn;

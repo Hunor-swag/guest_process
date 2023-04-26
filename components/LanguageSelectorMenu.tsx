@@ -1,11 +1,11 @@
 "use client";
 
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Language } from "@/types/typings";
-import Link from "next/link";
 import { MouseEvent, useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
-function LanguageSelectorMenu({ lang }: { lang: string }) {
+function LanguageSelectorMenu() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const LANGUAGE_SELECTOR_ID = "language-selector";
   const languages = [
@@ -13,9 +13,7 @@ function LanguageSelectorMenu({ lang }: { lang: string }) {
     { key: "en", name: "English" },
   ];
 
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(
-    languages.find((l) => l.key === lang) as Language
-  );
+  const [lang, setLang] = useLocalStorage("lang", languages[0]);
 
   useEffect(() => {
     const handleWindowClick = (event: any) => {
@@ -46,14 +44,9 @@ function LanguageSelectorMenu({ lang }: { lang: string }) {
     e: MouseEvent<HTMLButtonElement>,
     lang: Language
   ) => {
-    const currentPathname = window.location.pathname;
-    const newPathname = currentPathname.replace(
-      currentPathname.split("/")[1],
-      lang.key
-    );
-    window.location.href = newPathname;
-    setSelectedLanguage(lang);
+    setLang(lang);
     setIsOpen(false);
+    window.location.reload();
   };
 
   return (
@@ -66,12 +59,13 @@ function LanguageSelectorMenu({ lang }: { lang: string }) {
         aria-expanded={isOpen}
       >
         <ReactCountryFlag
-          countryCode={getCountryCode(lang)}
+          countryCode={getCountryCode(lang.key)}
+          key={lang.key}
           className="rounded-full mr-3"
           style={{ height: "30px", width: "30px" }}
           svg
         />
-        {languages.find((l) => l.key === lang)?.name}
+        {languages.find((l) => l.key === lang.key)?.name}
         <svg
           className="-mr-1 ml-2 h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +88,7 @@ function LanguageSelectorMenu({ lang }: { lang: string }) {
                 <button
                   key={index}
                   type="button"
-                  className="block w-full text-left py-2 px-4 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+                  className="block w-full text-left py-2 px-4 hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100"
                   onClick={(e: MouseEvent<HTMLButtonElement>) =>
                     handleLanguageChange(e, option)
                   }

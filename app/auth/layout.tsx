@@ -1,17 +1,16 @@
+"use client";
+
 import LanguageSelectorMenu from "@/components/LanguageSelectorMenu";
 import Link from "next/link";
 import React from "react";
-import en from "@/dictionaries/en.json";
-import hu from "@/dictionaries/hu.json";
+import { useDictionary } from "@/hooks/useDictionary";
 
 export default function AuthLayout({
   children,
-  params: { lang },
 }: {
   children: React.ReactNode;
-  params: { lang: string };
 }) {
-  const dict = lang === "en" ? en : hu;
+  const dict = useDictionary();
 
   return (
     <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-orange-400">
@@ -30,7 +29,7 @@ export default function AuthLayout({
           </div>
           <div className="flex justify-between">
             <div>
-              <LanguageSelectorMenu lang={lang} />
+              <LanguageSelectorMenu />
             </div>
             <div className="flex flex-row flex-wrap">
               <div className="mx-1">

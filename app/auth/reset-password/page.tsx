@@ -1,9 +1,9 @@
 "use client";
 
-import AuthInput from "@/components/AuthInput";
+import AuthInput from "@/components/auth/AuthInput";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const ResetPassword = () => {
+export default function ResetPassword() {
   const [email, setEmail] = useState<string>("");
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +46,4 @@ const ResetPassword = () => {
       </div>
     </form>
   );
-};
-
-export default ResetPassword;
+}

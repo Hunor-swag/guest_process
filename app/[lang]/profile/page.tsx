@@ -1,1 +1,0 @@
-// profil elkeszitese nev, email, telefonsz

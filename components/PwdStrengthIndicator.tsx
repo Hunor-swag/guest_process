@@ -3,7 +3,7 @@ type Props = {
   num: number;
 };
 
-const PwdStrengthIndicator = ({ pwdStrength, num }: Props) => {
+export default function PwdStrengthIndicator({ pwdStrength, num }: Props) {
   return (
     <div
       className={`bg-gray-200 rounded-full w-[24%] h-[5px] my-2 ${
@@ -11,6 +11,4 @@ const PwdStrengthIndicator = ({ pwdStrength, num }: Props) => {
       }`}
     />
   );
-};
-
-export default PwdStrengthIndicator;
+}
