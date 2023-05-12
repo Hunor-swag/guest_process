@@ -10,21 +10,10 @@ import {
 } from "@/functions/validations";
 import Link from "next/link";
 import { checkPasswordStrength } from "@/functions/checkPasswordStrength";
-import en from "@/dictionaries/en.json";
-import hu from "@/dictionaries/hu.json";
+import { useDictionary } from "@/hooks/useDictionary";
 
-export default function SignUp({
-  params: { lang },
-}: {
-  params: { lang: string };
-}) {
-  const [dict, setDict] = useState(hu);
-
-  useEffect(() => {
-    if (lang === "en") {
-      setDict(en);
-    }
-  }, [lang]);
+export default function SignUp() {
+  const dict = useDictionary().auth;
 
   const [values, setValues] = useState({
     email: "",
@@ -133,7 +122,7 @@ export default function SignUp({
       />
       <div className="mb-5">
         <div className="flex items-center text-sm font-semibold text-gray-400">
-          <label className="inline-flex items-center">
+          <label className="flex items-center flex-wrap">
             <input
               type="checkbox"
               className="rounded-md focus:ring-offset-0 w-5 h-5 mr-2 focus:ring-0 border-gray-300"

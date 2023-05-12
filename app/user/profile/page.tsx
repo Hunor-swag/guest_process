@@ -39,6 +39,7 @@ export default function ProfilePage() {
           name={dict.userProfile.fullName}
           value={values.full_name}
           onChange={(e) => handleInputChange(e, "full_name")}
+          autoFocus
         />
         <ProfileInput
           name={dict.userProfile.phoneNumber}

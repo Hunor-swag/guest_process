@@ -6,8 +6,8 @@ import { Language } from "@/types/typings";
 
 export function useDictionary() {
   const [lang, setLang] = useLocalStorage("lang", {
-    key: "hu",
-    value: "Magyar",
+    key: "en",
+    value: "English",
   });
 
   const [dict, setDict] = useState(hu);

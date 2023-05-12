@@ -14,7 +14,7 @@ import hu from "@/dictionaries/hu.json";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export default function SignIn() {
-  const dict = useDictionary();
+  const dict = useDictionary().auth;
 
   const [values, setValues] = useState({
     email: "",
