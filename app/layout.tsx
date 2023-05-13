@@ -1,15 +1,18 @@
+import { getServerSession } from "next-auth";
 import "./globals.css";
+import Login from "@/components/Login";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { SessionProvider } from "next-auth/react";
+import Provider from "./system/Provider";
 
-export const metadata = {
-  title: "Felhő Asztal",
-};
-
-async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html>
       <body>{children}</body>
     </html>
   );
 }
-
-export default RootLayout;

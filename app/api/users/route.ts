@@ -1,8 +1,7 @@
 import { getPrisma } from "@/functions/prisma";
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-const prisma = getPrisma("hunor");
+const prisma = getPrisma("guest_process");
 
 export async function GET() {
   const users = await prisma.user.findMany();
@@ -16,6 +15,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  console.log(req);
   try {
     const json = await req.json();
 
