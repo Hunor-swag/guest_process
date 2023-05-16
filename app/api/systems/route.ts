@@ -1,10 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  createSchema,
-  createSystem,
-  getPrisma,
-  useSchema,
-} from "@/functions/prisma";
 import { PrismaClient } from "@prisma/client";
 
 export async function POST(req: NextRequest) {

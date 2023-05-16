@@ -6,7 +6,10 @@ type Props = {
   title: string;
   bgcolor: string;
   submitButtonText: string;
+  submitButtonClickHandler?: () => void;
+  otherButtons?: React.ReactNode;
   children: React.ReactNode;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 function PanelForm({
@@ -15,20 +18,28 @@ function PanelForm({
   bgcolor,
   title,
   submitButtonText,
+  submitButtonClickHandler,
+  otherButtons,
   children,
+  onSubmit,
 }: Props) {
   return (
     <form
-      className={`w-${width} h-${height} bg-${bgcolor} py-4 px-8 rounded-xl`}
+      className={`w-${width} h-${height} bg-${bgcolor} py-4 md:px-8 px-2 rounded-xl`}
+      onSubmit={onSubmit}
     >
-      <div className="flex justify-between items-center pb-4 border-b border-b-gray-400 mb-8">
+      <div className="flex justify-between items-center pb-4 border-b border-b-gray-400 mb-8 p-2">
         <h1 className="text-xl font-semibold">{title}</h1>
-        <button
-          type="submit"
-          className="py-2 px-3 bg-blue-700 text-white rounded-lg hover:bg-blue-600"
-        >
-          {submitButtonText}
-        </button>
+        <div className="flex space-x-2">
+          {otherButtons}
+          <button
+            type="submit"
+            onClick={submitButtonClickHandler}
+            className="btn"
+          >
+            {submitButtonText}
+          </button>
+        </div>
       </div>
       <div>{children}</div>
     </form>

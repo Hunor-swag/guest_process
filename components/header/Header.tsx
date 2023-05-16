@@ -26,12 +26,9 @@ export default function Header({
         <div className="hidden lg:flex pl-10 justify-start items-center space-x-2">
           {/* TODO: which item is selected? */}
           <HeaderItem text={dict.userHeader.home} href="/user/#" />
-          <HeaderItem text={dict.userHeader.about} href="/user/#" />
-          <HeaderItem text={dict.userHeader.contact} href="/user/#" />
+          <HeaderItem text={dict.userHeader.guests} href="/user/guests_data" />
         </div>
         <div className="flex space-x-2 items-center">
-          <HeaderIcon Icon={BoltIcon} />
-          <HeaderIcon Icon={BoltIcon} />
           <HeaderIcon Icon={BoltIcon} />
           <ProfileIcon />
         </div>

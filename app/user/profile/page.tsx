@@ -1,7 +1,7 @@
 "use client";
 
 import PanelForm from "@/components/PanelForm";
-import ProfileInput from "@/components/ProfileInput";
+import InputWithLabel from "@/components/InputWithLabel";
 import { useDictionary } from "@/hooks/useDictionary";
 import React, { ChangeEvent, useState } from "react";
 
@@ -25,7 +25,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="w-full p-8">
+    <div>
       <h1 className="text-4xl font-bold mb-2">Name</h1>
       <h2 className="text-3xl font-semibold text-gray-700 mb-8">Email</h2>
       <PanelForm
@@ -34,19 +34,20 @@ export default function ProfilePage() {
         height="full"
         submitButtonText="Submit"
         title={dict.userProfile.profileDetails}
+        onSubmit={() => {}}
       >
-        <ProfileInput
+        <InputWithLabel
           name={dict.userProfile.fullName}
           value={values.full_name}
           onChange={(e) => handleInputChange(e, "full_name")}
           autoFocus
         />
-        <ProfileInput
+        <InputWithLabel
           name={dict.userProfile.phoneNumber}
           value={values.phone_number}
           onChange={(e) => handleInputChange(e, "phone_number")}
         />
-        <ProfileInput
+        <InputWithLabel
           name={dict.userProfile.address}
           value={values.address}
           onChange={(e) => handleInputChange(e, "address")}

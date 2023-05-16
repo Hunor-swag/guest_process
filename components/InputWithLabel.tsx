@@ -2,13 +2,13 @@
 
 type Props = {
   name: string;
-  value: string;
+  value?: string;
   placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   autoFocus?: boolean;
 };
 
-function ProfileInput({
+function InputWithLabel({
   name,
   value,
   onChange,
@@ -30,4 +30,4 @@ function ProfileInput({
   );
 }
 
-export default ProfileInput;
+export default InputWithLabel;
