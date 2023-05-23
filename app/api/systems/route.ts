@@ -1,32 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 
 export async function POST(req: NextRequest) {
   try {
-    const prisma = new PrismaClient();
-
     const json = await req.json();
-
-    useSchema("guest_process");
-
-    const system = await prisma.system.create({
-      data: json,
-    });
-
-    const new_prisma = await createSystem(json.name);
-
-    await new_prisma.user.create({
-      data: {
-        email: json.contact_email,
-        name: json.name,
-      },
-    });
 
     let json_response = {
       status: "success",
-      data: {
-        system,
-      },
     };
 
     return new NextResponse(JSON.stringify(json_response), {

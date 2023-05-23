@@ -1,15 +1,8 @@
-import { getPrisma } from "@/functions/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-const prisma = getPrisma("guest_process");
-
 export async function GET() {
-  const users = await prisma.user.findMany();
-
   let json_response = {
     status: "success",
-    results: users.length,
-    users,
   };
   return NextResponse.json(json_response);
 }
@@ -19,15 +12,8 @@ export async function POST(req: NextRequest) {
   try {
     const json = await req.json();
 
-    const user = await prisma.user.create({
-      data: json,
-    });
-
     let json_response = {
       status: "success",
-      data: {
-        user,
-      },
     };
 
     return new NextResponse(JSON.stringify(json_response), {

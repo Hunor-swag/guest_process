@@ -10,22 +10,12 @@ import { useDictionary } from "@/hooks/useDictionary";
 function ProfileIcon() {
   const dict = useDictionary();
   const [isOpen, setIsOpen] = useState(false);
-  const languages = [
-    { key: "hu", name: "Magyar" },
-    { key: "en", name: "English" },
-  ];
-
-  const [lang, setLang] = useLocalStorage("lang", languages[0]);
   const handleMouseEnter = () => {
     setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
     setIsOpen(false);
-  };
-
-  const getOtherLanguage = () => {
-    return languages.find((language) => language.key !== lang.key);
   };
 
   return (
@@ -59,15 +49,6 @@ function ProfileIcon() {
           <Link className="hver:text-[#009ef7]" href="/user/profile">
             <li>{dict.userHeader.myProfile}</li>
           </Link>
-          <button
-            className="text-left"
-            onClick={() => {
-              setLang(getOtherLanguage());
-              window.location.reload();
-            }}
-          >
-            <li>{getOtherLanguage()?.key.toUpperCase()}</li>
-          </button>
           <Link className="hver:text-[#009ef7]" href="/user/#">
             <li>{dict.userHeader.signOut}</li>
           </Link>

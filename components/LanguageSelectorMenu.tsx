@@ -13,7 +13,7 @@ function LanguageSelectorMenu() {
     { key: "en", name: "English" },
   ];
 
-  const [lang, setLang] = useLocalStorage("lang", languages[0]);
+  // const [lang, setLang] = useLocalStorage("lang", languages[0]);
 
   useEffect(() => {
     const handleWindowClick = (event: any) => {
@@ -40,14 +40,14 @@ function LanguageSelectorMenu() {
     }
   };
 
-  const handleLanguageChange = (
-    e: MouseEvent<HTMLButtonElement>,
-    lang: Language
-  ) => {
-    setLang(lang);
-    setIsOpen(false);
-    window.location.reload();
-  };
+  // const handleLanguageChange = (
+  //   e: MouseEvent<HTMLButtonElement>,
+  //   lang: Language
+  // ) => {
+  //   setLang(lang);
+  //   setIsOpen(false);
+  //   window.location.reload();
+  // };
 
   return (
     <div className="relative">
@@ -58,14 +58,14 @@ function LanguageSelectorMenu() {
         id={LANGUAGE_SELECTOR_ID}
         aria-expanded={isOpen}
       >
-        <ReactCountryFlag
+        {/* <ReactCountryFlag
           countryCode={getCountryCode(lang.key)}
           key={lang.key}
           className="rounded-full mr-3"
           style={{ height: "30px", width: "30px" }}
           svg
-        />
-        {languages.find((l) => l.key === lang.key)?.name}
+        /> */}
+        {/* {languages.find((l) => l.key === lang.key)?.name} */}
         <svg
           className="-mr-1 ml-2 h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ function LanguageSelectorMenu() {
           />
         </svg>
       </button>
-      {isOpen && (
+      {/* {isOpen && (
         <div className="absolute mt-2 w-48 rounded-lg shadow-lg bg-white z-1">
           {languages.map(
             (option: { key: string; name: string }, index: number) => {
@@ -100,7 +100,7 @@ function LanguageSelectorMenu() {
             }
           )}
         </div>
-      )}
+      )} */}
     </div>
   );
 }
