@@ -5,7 +5,6 @@
 
 import AuthInput from "@/components/auth/AuthInput";
 import Link from "next/link";
-import ErrorDialog from "@/components/auth/ErrorDialog";
 import { passwordEntered, validateEmail } from "@/functions/validations";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import en from "@/dictionaries/en.json";
@@ -26,8 +25,6 @@ export default function SignIn() {
     password: "",
   });
 
-  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>, name: string) => {
     setValues((prevValues) => ({ ...prevValues, [name]: e.target.value }));
   };
@@ -43,7 +40,7 @@ export default function SignIn() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) {
-      setErrorDialogOpen(true);
+      // todo display dialog
       return;
     }
   };
@@ -112,11 +109,6 @@ export default function SignIn() {
           {dict.signIn.signUp}
         </Link>
       </div>
-      <ErrorDialog
-        onButtonClick={() => setErrorDialogOpen(false)}
-        open={errorDialogOpen}
-        onClose={() => setErrorDialogOpen(false)}
-      />
     </form>
   );
 }
