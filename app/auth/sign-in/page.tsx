@@ -8,10 +8,10 @@ import Link from "next/link";
 import ErrorDialog from "@/components/auth/ErrorDialog";
 import { passwordEntered, validateEmail } from "@/functions/validations";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useDictionary } from "@/hooks/useDictionary";
 import en from "@/dictionaries/en.json";
 import hu from "@/dictionaries/hu.json";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import useDictionary from "@/hooks/useDictionary";
 
 export default function SignIn() {
   const dict = useDictionary().auth;

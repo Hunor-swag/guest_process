@@ -4,7 +4,7 @@ import hu from "@/dictionaries/hu.json";
 import { Language } from "@/types/typings";
 import { useLocalStorage } from "./useLocalStorage";
 
-export function useDictionary() {
+export default function useDictionary() {
   const lang = {
     key: "en",
     value: "English",

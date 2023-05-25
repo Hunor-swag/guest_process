@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import Input from "./system-user-auth/Input";
 import { validateEmail, validatePassword } from "@/functions/validations";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 import { signIn } from "next-auth/react";
 
 function Login() {

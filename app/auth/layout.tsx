@@ -1,9 +1,9 @@
 "use client";
 
 import LanguageSelectorMenu from "@/components/LanguageSelectorMenu";
+import useDictionary from "@/hooks/useDictionary";
 import Link from "next/link";
 import React from "react";
-import { useDictionary } from "@/hooks/useDictionary";
 
 export default function AuthLayout({
   children,

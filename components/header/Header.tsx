@@ -4,7 +4,7 @@ import { BoltIcon, UserIcon } from "@heroicons/react/24/outline";
 import HeaderIcon from "./HeaderIcon";
 import HeaderItem from "./HeaderItem";
 import ProfileIcon from "./ProfileIcon";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 
 export default function Header({
   isSidebarDisplayed,

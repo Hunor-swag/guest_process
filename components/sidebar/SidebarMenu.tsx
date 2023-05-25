@@ -3,7 +3,7 @@
 import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
 import SidebarItem from "./SidebarItem";
 import SidebarTitle from "./SidebarTitle";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 
 export default function SidebarMenu({ showSidebar }: { showSidebar: boolean }) {
   const dict = useDictionary();

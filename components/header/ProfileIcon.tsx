@@ -5,7 +5,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React, { useState } from "react";
 import LanguageSelectorMenu from "../LanguageSelectorMenu";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 
 function ProfileIcon() {
   const dict = useDictionary();

@@ -2,7 +2,7 @@
 
 import PanelForm from "@/components/PanelForm";
 import InputWithLabel from "@/components/InputWithLabel";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 import React, { ChangeEvent, useState } from "react";
 
 export default function ProfilePage() {

@@ -2,7 +2,7 @@
 
 import { FocusEvent, FormEvent, useState } from "react";
 import Input from "../../components/add-system/Input";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 import Link from "next/link";
 import {
   isValid,

@@ -10,7 +10,7 @@ import {
 } from "@/functions/validations";
 import Link from "next/link";
 import { checkPasswordStrength } from "@/functions/checkPasswordStrength";
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 
 export default function SignUp() {
   const dict = useDictionary().auth;

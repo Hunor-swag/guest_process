@@ -1,4 +1,4 @@
-import { useDictionary } from "@/hooks/useDictionary";
+import useDictionary from "@/hooks/useDictionary";
 
 function RegisterSystemLayout({ children }: { children: React.ReactNode }) {
   return (
