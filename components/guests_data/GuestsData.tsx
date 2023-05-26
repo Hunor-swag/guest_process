@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Panel from "../Panel";
-import DataTable from "./DataTable";
 import { Guest } from "@/types/typings";
 import AddGuestModal from "./AddGuestModal";
+import DataTable from "./DataTable";
 
 export default function GuestsData({ guests }: { guests: Guest[] }) {
   const [showAddGuestModal, setShowAddGuestModal] = useState(false);
