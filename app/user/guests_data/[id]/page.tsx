@@ -2,7 +2,9 @@
 
 import InputWithLabel from "@/components/InputWithLabel";
 import PanelForm from "@/components/PanelForm";
+import getApiUrl from "@/functions/getApiUrl";
 import { Guest } from "@/types/typings";
+import { revalidateTag } from "next/cache";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useEffect, useState } from "react";
 
@@ -17,7 +19,7 @@ function IdPage({ params }: { params: { id: string } }) {
   const { push } = useRouter();
 
   useEffect(() => {
-    const result = fetch(`http://localhost:3000/api/guests/${params.id}`)
+    const result = fetch(`https://api.putboot.dev/api/guests/${params.id}`)
       .then((res) => res.json())
       .then((data) => setGuest(data[0]));
   }, []);
@@ -31,17 +33,17 @@ function IdPage({ params }: { params: { id: string } }) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/guests/${params.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(guest),
-        }
-      );
+      const response = await fetch(`${getApiUrl()}/api/guests/${params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(guest),
+      });
+
+      revalidateTag("guests");
 
       if (response.ok) {
         push("/user/guests_data");

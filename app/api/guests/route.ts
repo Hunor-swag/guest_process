@@ -19,15 +19,33 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const queryString =
-    "INSERT INTO guests (name, email, address, id_number) VALUES (?, ?, ?, ?)";
+  try {
+    const queryString =
+      "INSERT INTO guests (name, email, address, id_number) VALUES (?, ?, ?, ?)";
 
-  const { name, email, address, id_number } = await req.json();
+    const { name, email, address, id_number } = await req.json();
 
-  const results = (await query("control_panel", queryString, [
-    name,
-    email,
-    address,
-    id_number,
-  ])) as [];
+    const results = (await query("control_panel", queryString, [
+      name,
+      email,
+      address,
+      id_number,
+    ])) as [];
+
+    return new NextResponse(JSON.stringify(results), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new NextResponse(
+      JSON.stringify({
+        status: "error",
+        message: error,
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
 }

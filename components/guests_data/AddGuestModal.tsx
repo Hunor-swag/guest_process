@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import PanelForm from "../PanelForm";
 import InputWithLabel from "../InputWithLabel";
 import { revalidateTag } from "next/cache";
+import getApiUrl from "@/functions/getApiUrl";
 
 type Props = {
   open: boolean;
@@ -37,7 +38,7 @@ function AddGuestModal({ open, setOpen }: Props) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await fetch("/api/guests", {
+      await fetch(`${getApiUrl()}/api/guests`, {
         method: "POST",
         body: JSON.stringify(values),
         headers: {
@@ -47,7 +48,6 @@ function AddGuestModal({ open, setOpen }: Props) {
     } catch (error) {
       console.error("An error occurred:", error);
     }
-    revalidateTag("guests");
   };
 
   return (
