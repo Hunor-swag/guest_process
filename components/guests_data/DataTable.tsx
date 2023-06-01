@@ -45,7 +45,7 @@ export default function DataTable({ data }: Props) {
                   contentText={guest.id_number}
                 />
                 <Link href={`/user/guests_data/${guest.id}`}>
-                  <button className="btn mt-2 w-full">Edit</button>
+                  <button className="btn bg-red-500 mt-2 w-full">Edit</button>
                 </Link>
               </ul>
             </div>
