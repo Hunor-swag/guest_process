@@ -21,8 +21,8 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: Install Dependencies
-        run: npm install
+      # - name: Install Dependencies
+      #   run: npm install
 
       - name: Setting up Environment Variables
         env:
@@ -33,8 +33,8 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
-      - name: Build Application
-        run: npm run build
+      # - name: Build Application
+      #   run: npm run build
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
@@ -54,5 +54,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/html
+            cd /var/www/guest_process
+            npm run build
             /root/.nvm/versions/node/v18.16.0/bin/pm2 restart guest_process
