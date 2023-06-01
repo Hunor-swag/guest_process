@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: "16.x"
 
+      - name: Install Dependencies
+        run: npm install
+
       - name: Setting up Environment Variables
         env:
           NEXT_PUBLIC_MYSQL_DATABASE_HOST: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_HOST }}
@@ -30,21 +33,20 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
+      - name: Build Application
+        run: npm run build
+
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: unnecessary
 
-      - name: Deploy to VPS
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /var/www/guest_process
-            git pull origin main
-            npm ci
-            npm run build
-            pm2 restart guest_process
+      - name: Adding Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/authorized_keys
+          ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
