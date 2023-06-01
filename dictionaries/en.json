@@ -42,7 +42,8 @@
     "contact": "Contact Us"
   },
   "userSidebar": {
-    "profile": "Profile"
+    "profile": "Profile",
+    "guests": "Guests"
   },
   "userHeader": {
     "home": "Home",

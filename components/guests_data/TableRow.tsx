@@ -3,13 +3,14 @@
 import { Guest } from "@/types/typings";
 import Link from "next/link";
 import { useState } from "react";
-import getApiUrl from "@/functions/getApiUrl";
+import { useRouter } from "next/navigation";
 
 type Props = {
   guest: Guest;
 };
 
 export default function TableRow({ guest }: Props) {
+  const router = useRouter();
   const confirmDeleteGuest = () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this guest?"
@@ -20,10 +21,14 @@ export default function TableRow({ guest }: Props) {
 
   const deleteGuest = async () => {
     try {
-      const res = await fetch(`${getApiUrl()}/api/guests/${guest.id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/guests/${guest.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const data = await res.json();
+      router.refresh();
     } catch (err) {
       console.log(err);
     }

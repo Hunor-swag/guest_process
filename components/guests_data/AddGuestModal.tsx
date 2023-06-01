@@ -3,8 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import PanelForm from "../PanelForm";
 import InputWithLabel from "../InputWithLabel";
-import { revalidateTag } from "next/cache";
-import getApiUrl from "@/functions/getApiUrl";
+import { useRouter } from "next/navigation";
 
 type Props = {
   open: boolean;
@@ -13,6 +12,8 @@ type Props = {
 
 function AddGuestModal({ open, setOpen }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
+
+  const router = useRouter();
 
   const [values, setValues] = useState({
     name: "",
@@ -38,16 +39,27 @@ function AddGuestModal({ open, setOpen }: Props) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await fetch(`${getApiUrl()}/api/guests`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests`, {
         method: "POST",
         body: JSON.stringify(values),
         headers: {
           "Content-Type": "application/json",
         },
       });
+      resetForm();
+      router.refresh();
     } catch (error) {
       console.error("An error occurred:", error);
     }
+  };
+
+  const resetForm = () => {
+    setValues({
+      name: "",
+      email: "",
+      address: "",
+      id_number: "",
+    });
   };
 
   return (

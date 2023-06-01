@@ -1,24 +1,20 @@
 import GuestsData from "@/components/guests_data/GuestsData";
 import { Guest } from "@/types/typings";
-import getApiUrl from "@/functions/getApiUrl";
+import next from "next/types";
 
 async function getData() {
-  const res = await fetch(`${getApiUrl()}/api/guests`, {
-    next: {
-      tags: ["guests"],
-    },
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests`, {
+    cache: "no-store",
   });
-  const json = await res.json();
-  if (json.errors) {
-    throw new Error("Failed to fetch API");
-  }
 
-  return json.data;
-  // return new Array<Guest>();
+  const json = await res.json();
+
+  return json;
 }
 
 export default async function GuestsPage() {
   const guests = await getData();
 
-  return <GuestsData guests={guests} />;
+  return <GuestsData guests={guests.data} />;
 }

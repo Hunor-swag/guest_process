@@ -16,7 +16,7 @@ export default function Header({
   return (
     <>
       <header
-        className={`right-0 fixed z-0 flex justify-between p-4 h-16 text-gray-400 w-full bg-white
+        className={`right-0 fixed z-10 flex justify-between p-4 h-16 text-gray-400 w-full bg-white
         lg:pl-[${isSidebarDisplayed ? "200px" : "80px"}]
       `}
       >

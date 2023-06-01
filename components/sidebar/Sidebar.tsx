@@ -20,7 +20,7 @@ export default function Sidebar({ displayed, setDisplayed }: Props) {
   return (
     <>
       <div
-        className={`fixed w-8 h-7 z-30 hidden lg:flex lg:justify-center lg:items-center rounded-lg overflow-hidden text-[#009ef7] bg-white cursor-pointer shadow-md top-5 ease-in-out duration-200 ${
+        className={`fixed w-8 h-7 z-30 hidden lg:flex lg:justify-center lg:items-center rounded-lg overflow-hidden text-[#009ef7] bg-white cursor-pointer shadow-lg top-5 ease-in-out duration-200 ${
           showSidebar ? "left-[184px]" : "left-[64px]"
         }
         ${displayed && "rotate-180"}

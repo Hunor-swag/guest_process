@@ -42,7 +42,8 @@
     "contact": "Kapcsolat"
   },
   "userSidebar": {
-    "profile": "Profil"
+    "profile": "Profil",
+    "guests": "Vendégek"
   },
   "userHeader": {
     "home": "Kezdőlap",

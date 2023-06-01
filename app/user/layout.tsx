@@ -23,7 +23,7 @@ export default function UserInterfaceLayout({
       >
         <Header isSidebarDisplayed={displaySidebar} />
         <div className="pt-16 w-full h-full bg-gradient-to-b from-gray-400 to-gray-100">
-          <div className="w-full md:p-8 p-2">{children}</div>
+          <div className="w-full lg:p-8 p-2">{children}</div>
         </div>
       </div>
     </div>

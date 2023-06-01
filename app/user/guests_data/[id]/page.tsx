@@ -2,7 +2,6 @@
 
 import InputWithLabel from "@/components/InputWithLabel";
 import PanelForm from "@/components/PanelForm";
-import getApiUrl from "@/functions/getApiUrl";
 import { Guest } from "@/types/typings";
 import { revalidateTag } from "next/cache";
 import { useRouter } from "next/navigation";
@@ -16,10 +15,12 @@ function IdPage({ params }: { params: { id: string } }) {
     id_number: "",
   } as Guest);
 
-  const { push } = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
-    const result = fetch(`https://api.putboot.dev/api/guests/${params.id}`)
+    const result = fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/guests/${params.id}`
+    )
       .then((res) => res.json())
       .then((data) => setGuest(data[0]));
   }, []);
@@ -35,18 +36,20 @@ function IdPage({ params }: { params: { id: string } }) {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${getApiUrl()}/api/guests/${params.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(guest),
-      });
-
-      revalidateTag("guests");
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/guests/${params.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(guest),
+        }
+      );
 
       if (response.ok) {
-        push("/user/guests_data");
+        router.push("/user/guests_data");
+        router.refresh();
       }
     } catch (error) {
       console.error("An error occurred:", error);
@@ -62,7 +65,7 @@ function IdPage({ params }: { params: { id: string } }) {
         <button
           type="button"
           className="btn"
-          onClick={() => push("/user/guests_data")}
+          onClick={() => router.push("/user/guests_data")}
         >
           Back
         </button>

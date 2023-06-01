@@ -33,17 +33,17 @@ export default function AuthLayout({
             </div>
             <div className="flex flex-row flex-wrap">
               <div className="mx-1">
-                <Link className="link" href="/terms">
+                <Link className="link" href="/#">
                   {dict.links.terms}
                 </Link>
               </div>
               <div className="mx-1">
-                <Link className="link" href="/plans">
+                <Link className="link" href="/#">
                   {dict.links.plans}
                 </Link>
               </div>
               <div className="mx-1">
-                <Link className="link" href="/contact-us">
+                <Link className="link" href="/#">
                   {dict.links.contact}
                 </Link>
               </div>

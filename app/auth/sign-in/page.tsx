@@ -11,9 +11,11 @@ import en from "@/dictionaries/en.json";
 import hu from "@/dictionaries/hu.json";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import useDictionary from "@/hooks/useDictionary";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
   const dict = useDictionary().auth;
+  const router = useRouter();
 
   const [values, setValues] = useState({
     email: "",
@@ -39,10 +41,12 @@ export default function SignIn() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validate()) {
-      // todo display dialog
-      return;
-    }
+
+    router.push("/user");
+    // if (!validate()) {
+    //   // todo display dialog
+    //   return;
+    // }
   };
 
   const setValidationError = (name: string, message: string) => {

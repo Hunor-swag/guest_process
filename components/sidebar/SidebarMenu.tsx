@@ -1,6 +1,10 @@
 "use client";
 
-import { BuildingLibraryIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  BookOpenIcon,
+  BuildingLibraryIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import SidebarItem from "./SidebarItem";
 import SidebarTitle from "./SidebarTitle";
 import useDictionary from "@/hooks/useDictionary";
@@ -15,6 +19,12 @@ export default function SidebarMenu({ showSidebar }: { showSidebar: boolean }) {
         Icon={UserIcon}
         text={dict.userSidebar.profile}
         href="/user/profile"
+      />
+      <SidebarItem
+        Icon={BookOpenIcon}
+        href="/user/guests_data"
+        showText={showSidebar}
+        text={dict.userSidebar.guests}
       />
     </ul>
   );
