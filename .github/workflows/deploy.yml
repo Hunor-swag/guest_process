@@ -47,4 +47,4 @@ jobs:
             git pull origin main
             npm ci
             npm run build
-            pm2 restart your_nextjs_process_name
+            pm2 restart guest_process
