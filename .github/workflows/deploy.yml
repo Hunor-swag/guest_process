@@ -48,6 +48,15 @@ jobs:
       #     touch ~/.ssh/authorized_keys
       #     ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
-      - name: SSH Connection
-        run: |
-          ssh ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${TARGET_DIRECTORY} && git pull && npm i && npm run build && npm i pm2 -g && pm2 restart guest_process"
+      - name: Deploy NodeJS app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ~/var/www/guest_process
+            git pull
+            npm i
+            npm run build
+            pm2 restart guest_process
