@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ secrets.TARGET_DIRECTORY }}
+            cd /var/www/guest_process
             git pull origin main
             npm ci
             npm run build
