@@ -54,5 +54,4 @@ jobs:
       - name: Restarting PM2
         run: |
           ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
-          cd ${{ secrets.TARGET_DIRECTORY }}
           pm2 restart guest_process
