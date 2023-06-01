@@ -10,19 +10,19 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Main Branch
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          ref: main
+      # - name: Checkout Main Branch
+      #   uses: actions/checkout@v2
+      #   with:
+      #     fetch-depth: 0
+      #     ref: main
 
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "16.x"
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: "16.x"
 
-      - name: Install Dependencies
-        run: npm install
+      # - name: Install Dependencies
+      #   run: npm install
 
       - name: Setting up Environment Variables
         env:
@@ -33,25 +33,39 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
-      - name: Build Application
-        run: npm run build
+      # - name: Build Application
+      #   run: npm run build
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
+      # - name: Install SSH Key
+      #   uses: shimataro/ssh-key-action@v2
+      #   with:
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     known_hosts: unnecessary
+
+      # - name: Adding Known Hosts
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     touch ~/.ssh/authorized_keys
+      #     ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+
+      # - name: Deploy with rsync
+      #   run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
+
+      # - name: Restarting PM2
+      #   run: |
+      #     ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
+      #     pm2 restart guest_process
+
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
         with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: unnecessary
-
-      - name: Adding Known Hosts
-        run: |
-          mkdir -p ~/.ssh
-          touch ~/.ssh/authorized_keys
-          ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
-
-      - name: Deploy with rsync
-        run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
-
-      - name: Restarting PM2
-        run: |
-          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
-          pm2 restart guest_process
+          port: 22
+          script: |
+            cd /var/www/guest_process
+            git pull origin master
+            git status
+            npm install --only=prod
+            pm2 restart guest_process
