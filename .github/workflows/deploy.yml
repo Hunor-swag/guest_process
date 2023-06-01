@@ -51,16 +51,22 @@ jobs:
       # - name: Deploy with rsync
       #   run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
     steps:
-      - name: Deploy using ssh
-        uses: appleboy/ssh-action@master
+      - name: Run code on VPS
+        uses: appleboy/ssh-action@v0.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
           script: |
-            cd ~/var/www/guest_process
-            git pull origin master
-            git status
-            npm install
-            pm2 restart guest_process
+            # Connect to the directory where your code is located
+            cd /var/www/guest_process
+
+            # Install dependencies, build, or any other necessary steps
+            npm ci
+            npm run build
+
+            # Install PM2 globally
+            npm install -g pm2
+
+            # Use PM2 to start your application
+            pm2 start your_app.js
