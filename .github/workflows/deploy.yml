@@ -21,8 +21,8 @@ jobs:
         with:
           node-version: "16.x"
 
-      - name: Install Dependencies
-        run: npm install
+      # - name: Install Dependencies
+      #   run: npm install
 
       - name: Setting up Environment Variables
         env:
@@ -33,21 +33,21 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
-      - name: Build Application
-        run: npm run build
+      # - name: Build Application
+      #   run: npm run build
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: unnecessary
+      # - name: Install SSH Key
+      #   uses: shimataro/ssh-key-action@v2
+      #   with:
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     known_hosts: unnecessary
 
-      - name: Adding Known Hosts
-        run: |
-          mkdir -p ~/.ssh
-          touch ~/.ssh/authorized_keys
-          ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+      # - name: Adding Known Hosts
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     touch ~/.ssh/authorized_keys
+      #     ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
       - name: SSH Connection
         run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${TARGET_DIRECTORY} && git pull && npm i && npm run build && npm i pm2 -g && pm2 restart guest_process"
+          ssh ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${TARGET_DIRECTORY} && git pull && npm i && npm run build && npm i pm2 -g && pm2 restart guest_process"
