@@ -47,6 +47,12 @@ jobs:
           mkdir -p ~/.ssh
           touch ~/.ssh/authorized_keys
           ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
-      - name: Restart PM2
-        run: |
-          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.SSH_PATH }} && pm2 restart guest_process"
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/html
+            pm2 restart guest_process
