@@ -24,6 +24,15 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Setting up Environment Variables
+        env:
+          NEXT_PUBLIC_MYSQL_DATABASE_HOST: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_HOST }}
+          NEXT_PUBLIC_MYSQL_DATABASE_PORT: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_PORT }}
+          NEXT_PUBLIC_MYSQL_DATABASE_USER: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_USER }}
+          NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+        run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
+
       - name: Build Application
         run: npm run build
 
