@@ -55,5 +55,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/guest_process
-            npm run build
+            /root/.nvm/versions/node/v18.16.0/bin/npm run build
             /root/.nvm/versions/node/v18.16.0/bin/pm2 restart guest_process
