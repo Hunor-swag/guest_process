@@ -56,7 +56,7 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/guest_process
-            git pull origin main
+            git pull
             npm i
             npm run build
             pm2 restart guest_process
