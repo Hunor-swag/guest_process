@@ -15,9 +15,6 @@ jobs:
         with:
           node-version: "18.x"
 
-      - name: Install Dependencies
-        run: npm install
-
       - name: Setting up Environment Variables
         env:
           NEXT_PUBLIC_MYSQL_DATABASE_HOST: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_HOST }}
@@ -26,9 +23,6 @@ jobs:
           NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD: ${{ secrets.NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD }}
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
-
-      - name: Build Application
-        run: npm run build
 
       # - name: Install SSH Key
       #   uses: shimataro/ssh-key-action@v2
@@ -62,4 +56,5 @@ jobs:
             git pull origin master
             git status
             npm install --only=prod
+            npm run build
             pm2 restart guest_process
