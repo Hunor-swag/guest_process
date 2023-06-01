@@ -7,10 +7,13 @@ export async function query(
 ) {
   try {
     const connection: Connection = await createConnection({
-      host: "localhost",
-      port: 3306,
-      user: "guestprocess",
-      password: "GuestProcess#88",
+      host: process.env.NEXT_PUBLIC_MYSQL_DATABASE_HOST || "localhost",
+      port: process.env.NEXT_PUBLIC_MYSQL_DATABASE_PORT
+        ? parseInt(process.env.NEXT_PUBLIC_MYSQL_DATABASE_PORT)
+        : 3306,
+      user: process.env.NEXT_PUBLIC_MYSQL_DATABASE_USER || "guestprocess",
+      password:
+        process.env.NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD || "GuestProcess#88",
       database: databaseName,
     });
 
