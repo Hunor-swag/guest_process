@@ -14,7 +14,6 @@ import {
   validateRequiredField,
   validateSecondPassword,
 } from "@/functions/validations";
-import CustomDialog from "@/components/add-system/CustomDialog";
 
 export default function RegisterSystemPage() {
   const defaultObject = { value: "", error: "" };
@@ -269,20 +268,6 @@ export default function RegisterSystemPage() {
           </button>
         </div>
       </form>
-      {showErrorDialog && (
-        <CustomDialog
-          text="Error"
-          open={showErrorDialog}
-          setOpen={setShowErrorDialog}
-        />
-      )}
-      {showSuccessDialog && (
-        <CustomDialog
-          text="Success!"
-          open={showSuccessDialog}
-          setOpen={setShowSuccessDialog}
-        />
-      )}
     </>
   );
 }
