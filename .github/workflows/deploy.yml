@@ -24,35 +24,22 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
-      # - name: Install SSH Key
-      #   uses: shimataro/ssh-key-action@v2
-      #   with:
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     known_hosts: unnecessary
-
-      # - name: Adding Known Hosts
-      #   run: |
-      #     mkdir -p ~/.ssh
-      #     touch ~/.ssh/authorized_keys
-      #     ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
-
-      # - name: Deploy with rsync
-      #   run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
-
-      # - name: Restarting PM2
-      #   run: |
-      #     ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
-      #     pm2 restart guest_process
-
-      - name: Deploy using ssh
-        uses: appleboy/ssh-action@master
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /var/www/guest_process
-            npm install
-            npm run build
-            pm2 restart guest_process
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/authorized_keys
+          ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+
+      - name: Deploy with rsync
+        run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
+
+      - name: Restarting PM2
+        run: |
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}
+          pm2 restart guest_process
