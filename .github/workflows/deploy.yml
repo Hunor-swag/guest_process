@@ -48,8 +48,6 @@ jobs:
           touch ~/.ssh/authorized_keys
           ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
-      - name: Deploy with rsync
-        run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
-
-      - name: Restarting PM2
-        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.TARGET_DIRECTORY }} && pm2 restart guest_process"
+      - name: SSH Connection
+        run: |
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "cd ${TARGET_DIRECTORY} && git pull && npm i && npm run build && npm i pm2 -g && pm2 restart guest_process"
