@@ -52,7 +52,7 @@ jobs:
       #   run: rsync -avz . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ secrets.TARGET_DIRECTORY }}
     steps:
       - name: Deploy using ssh
-        uses: appleboy/ssh-action@main
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
