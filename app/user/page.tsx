@@ -8,7 +8,7 @@ export default function UserPage() {
       </h1>
       <p className="text-lg font-semibold text-red-800">
         This page is currently under development. Please use the Header and the
-        Sidebar to navigate!
+        Sidebar to navigate! Updated!
       </p>
     </div>
   );
