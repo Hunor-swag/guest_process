@@ -33,28 +33,20 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" >> $GITHUB_ENV
 
-      # - name: Build Application
-      #   run: npm run build
+      - name: Build Application
+        run: npm run build
 
-      # - name: Install SSH Key
-      #   uses: shimataro/ssh-key-action@v2
-      #   with:
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     known_hosts: unnecessary
-
-      # - name: Adding Known Hosts
-      #   run: |
-      #     mkdir -p ~/.ssh
-      #     touch ~/.ssh/authorized_keys
-      #     ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
-
-      - name: Deploy NodeJS app
-        uses: appleboy/ssh-action@v0.1.2
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
         with:
-          host: ${{secrets.SSH_HOST}}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /var/www/guest_process
-            npm run build
-            pm2 restart guest_process
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/authorized_keys
+          ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+      - name: Restart PM2
+        run: |
+          ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.SSH_PATH }} && pm2 restart guest_process"
