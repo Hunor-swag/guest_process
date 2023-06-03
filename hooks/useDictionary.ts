@@ -5,11 +5,11 @@ import { Language } from "@/types/typings";
 import { useLocalStorage } from "./useLocalStorage";
 
 export default function useDictionary() {
-  const lang = {
+  const [lang, setLang] = useLocalStorage("lang", {
     key: "en",
     value: "English",
-  };
-  const [dict, setDict] = useState(hu);
+  });
+  const [dict, setDict] = useState(en);
   useEffect(() => {
     switch (lang.key) {
       case "hu":

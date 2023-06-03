@@ -23,7 +23,7 @@ export default function AuthLayout({
         </h1>
       </div>
       <div className="w-full lg:w-1/2 flex flex-col items-center lg:flex-row lg:justify-end md:p-12 lg:p-16 lg:px-24 p-4">
-        <div className="bg-white w-full rounded-2xl items-stretch md:w-[600px] flex flex-col justify-center p-20 lg:px-102">
+        <div className="bg-white w-full rounded-2xl items-stretch md:w-[600px] flex flex-col justify-center p-6 md:p-10">
           <div className="flex flex-col items-center lg:px-10 md:px-2 pb-16 lg:pb-20 h-full">
             {children}
           </div>

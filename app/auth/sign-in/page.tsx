@@ -7,8 +7,6 @@ import AuthInput from "@/components/auth/AuthInput";
 import Link from "next/link";
 import { passwordEntered, validateEmail } from "@/functions/validations";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import en from "@/dictionaries/en.json";
-import hu from "@/dictionaries/hu.json";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import useDictionary from "@/hooks/useDictionary";
 import { useRouter } from "next/navigation";
