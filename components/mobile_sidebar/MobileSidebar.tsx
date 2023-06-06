@@ -31,7 +31,10 @@ export default function MobileSidebar() {
         >
           <XCircleIcon className="w-8 h-8 text-gray-500" />
         </button>
-        <SidebarMenu showSidebar={isOpen} />
+        <SidebarMenu
+          showSidebar={isOpen}
+          toggleMobileSidebar={handleSidebarToggle}
+        />
       </div>
     </>
   );

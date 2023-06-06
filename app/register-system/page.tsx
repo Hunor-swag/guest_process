@@ -18,7 +18,7 @@ import {
 export default function RegisterSystemPage() {
   const defaultObject = { value: "", error: "" };
   const [values, setValues] = useState({
-    restaurant_name: defaultObject,
+    hotel_name: defaultObject,
     person_name: defaultObject,
     email: defaultObject,
     phone: defaultObject,
@@ -46,7 +46,7 @@ export default function RegisterSystemPage() {
   const validate = () => {
     return (
       isValidEmail(values.email.value) &&
-      isValid(values.restaurant_name.value) &&
+      isValid(values.hotel_name.value) &&
       isValid(values.phone.value) &&
       isValid(values.person_name.value) &&
       isValidPassword(values.password.value) &&
@@ -61,28 +61,26 @@ export default function RegisterSystemPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("1");
-    if (!validate()) {
-      setShowErrorDialog(true);
-      return;
-    }
-    console.log("2");
-    resetForm();
-    console.log("3");
-    setShowSuccessDialog(true);
-    await fetch("http://localhost:3000/api/systems", {
+    // if (!validate()) {
+    //   setShowErrorDialog(true);
+    //   return;
+    // }
+    // resetForm();
+    // setShowSuccessDialog(true);
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/systems`, {
       method: "POST",
       body: JSON.stringify({
-        name: values.restaurant_name.value.toLowerCase(),
+        name: values.hotel_name.value.toLowerCase(),
         contact_email: values.email.value,
         contact_phone: values.phone.value,
       }),
     });
+    console.log("done");
   };
 
   const resetForm = () => {
     setValues({
-      restaurant_name: defaultObject,
+      hotel_name: defaultObject,
       person_name: defaultObject,
       email: defaultObject,
       phone: defaultObject,
@@ -122,14 +120,14 @@ export default function RegisterSystemPage() {
         <Input
           type="text"
           label={dict.registerSystem.restaurantName}
-          errorMessage={values.restaurant_name.error}
+          errorMessage={values.hotel_name.error}
           subLabel={dict.registerSystem.restaurantNameSubLabel}
-          value={values.restaurant_name.value}
-          onChange={(e) => handleInputChange(e, "restaurant_name")}
+          value={values.hotel_name.value}
+          onChange={(e) => handleInputChange(e, "hotel_name")}
           onBlur={(e) =>
             setErrorMessage(
               e,
-              "restaurant_name",
+              "hotel_name",
               validateRequiredField(e.target.value, dict.auth.validationTexts)
             )
           }

@@ -12,11 +12,18 @@ type Props = {
   >;
   text: string;
   href: string;
+  toggleMobileSidebar?: () => void;
 };
 
-export default function SidebarItem({ Icon, showText, text, href }: Props) {
+export default function SidebarItem({
+  Icon,
+  showText,
+  text,
+  href,
+  toggleMobileSidebar = () => {},
+}: Props) {
   return (
-    <Link href={href}>
+    <Link href={href} onClick={toggleMobileSidebar}>
       <li
         className={`overflow-hidden flex items-center rounded-md h-8 p-1 ml-3 my-5 cursor-pointer hover:text-white
       ${showText ? "w-[160px]" : "w-8"}

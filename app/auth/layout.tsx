@@ -1,9 +1,16 @@
 "use client";
 
-import LanguageSelectorMenu from "@/components/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
+
+const LanguageSelectorMenu = dynamic(
+  () => import("@/components/LanguageSelectorMenu"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 export default function AuthLayout({
   children,
@@ -31,7 +38,7 @@ export default function AuthLayout({
             <div>
               <LanguageSelectorMenu />
             </div>
-            <div className="flex flex-row flex-wrap">
+            <div className="flex flex-row flex-wrap items-center">
               <div className="mx-1">
                 <Link className="link" href="/#">
                   {dict.links.terms}

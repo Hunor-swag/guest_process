@@ -70,7 +70,7 @@ function AddGuestModal({ open, setOpen }: Props) {
       >
         <PanelForm
           bgcolor="white"
-          height="full"
+          height="fit"
           onSubmit={handleSubmit}
           submitButtonText="Add"
           submitButtonClickHandler={() => setOpen(false)}

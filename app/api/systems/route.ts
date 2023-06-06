@@ -1,15 +1,32 @@
+import { query } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const json = await req.json();
+    const { hotel_name, person_name, email, phone_number, password } =
+      await req.json();
 
-    let json_response = {
-      status: "success",
-    };
+    const queryString = `CREATE SCHEMA IF NOT EXISTS ?;
+      CREATE TABLE IF NOT EXISTS ?.users (
+          id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+          email VARCHAR(255) NOT NULL,
+          phone_number VARCHAR(255) NOT NULL,
+          password VARCHAR(255) NOT NULL,
+      INSERT INTO ?.users (name, email, phone_number, password) VALUES (?, ?, ?, ?)
+        `;
 
-    return new NextResponse(JSON.stringify(json_response), {
-      status: 201,
+    const results = (await query("control_panel", queryString, [
+      hotel_name,
+      hotel_name,
+      hotel_name,
+      person_name,
+      email,
+      phone_number,
+      password,
+    ])) as [];
+
+    return new NextResponse(JSON.stringify(results), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {

@@ -3,7 +3,6 @@ import { Guest } from "@/types/typings";
 import next from "next/types";
 
 async function getData() {
-  console.log(process.env.NEXT_PUBLIC_API_URL);
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests`, {
     cache: "no-store",
   });

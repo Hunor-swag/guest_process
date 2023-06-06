@@ -9,7 +9,13 @@ import SidebarItem from "./SidebarItem";
 import SidebarTitle from "./SidebarTitle";
 import useDictionary from "@/hooks/useDictionary";
 
-export default function SidebarMenu({ showSidebar }: { showSidebar: boolean }) {
+export default function SidebarMenu({
+  showSidebar,
+  toggleMobileSidebar = () => {},
+}: {
+  showSidebar: boolean;
+  toggleMobileSidebar?: () => void;
+}) {
   const dict = useDictionary();
 
   return (
@@ -19,12 +25,14 @@ export default function SidebarMenu({ showSidebar }: { showSidebar: boolean }) {
         Icon={UserIcon}
         text={dict.userSidebar.profile}
         href="/user/profile"
+        toggleMobileSidebar={toggleMobileSidebar}
       />
       <SidebarItem
         Icon={BookOpenIcon}
         href="/user/guests_data"
         showText={showSidebar}
         text={dict.userSidebar.guests}
+        toggleMobileSidebar={toggleMobileSidebar}
       />
     </ul>
   );
