@@ -61,11 +61,14 @@ export default function RegisterSystemPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log("1");
     if (!validate()) {
       setShowErrorDialog(true);
       return;
     }
+    console.log("2");
     resetForm();
+    console.log("3");
     setShowSuccessDialog(true);
     await fetch("http://localhost:3000/api/systems", {
       method: "POST",
