@@ -15,13 +15,12 @@ export default function MobileSidebar() {
   };
 
   const handleBarsIconClick = (event: React.MouseEvent<SVGSVGElement>) => {
-    event.stopPropagation(); // Prevent event propagation to the parent div
+    event.stopPropagation();
     handleSidebarToggle(true);
   };
 
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
-      console.log(event.target);
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(event.target as Node) &&
@@ -57,12 +56,7 @@ export default function MobileSidebar() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         } `}
       >
-        <button
-          className={`fixed top-4 left-44 ${isOpen ? "block" : "hidden"} `}
-          onClick={() => handleSidebarToggle(false)}
-        >
-          <XCircleIcon className="w-8 h-8 text-gray-500" />
-        </button>
+        <span className="mx-5 text-slate-200 font-semibold">LOGO</span>
         <SidebarMenu
           showSidebar={isOpen}
           toggleMobileSidebar={() => handleSidebarToggle(!isOpen)}

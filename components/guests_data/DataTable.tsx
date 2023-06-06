@@ -5,6 +5,7 @@ import React, { SetStateAction, useEffect, useState } from "react";
 import TableRow from "./TableRow";
 import Link from "next/link";
 import TableRowMobile from "./TableRowMobile";
+import MobileGuestDataTable from "./MobileGuestDataTable";
 
 type Props = {
   data: Guest[];
@@ -31,25 +32,7 @@ export default function DataTable({ data }: Props) {
       </table>
       <div className="md:hidden block">
         {data.map((guest: Guest, index: number) => {
-          return (
-            <div key={index}>
-              <ul className="bg-gray-200 p-3 my-2 rounded-xl text-sm space-y-1">
-                <TableRowMobile titleText="Name:" contentText={guest.name} />
-                <TableRowMobile titleText="Email:" contentText={guest.email} />
-                <TableRowMobile
-                  titleText="Address:"
-                  contentText={guest.address}
-                />
-                <TableRowMobile
-                  titleText="ID Number:"
-                  contentText={guest.id_number}
-                />
-                <Link href={`/user/guests_data/${guest.id}`}>
-                  <button className="bg-red-500 mt-2 w-full">Edit</button>
-                </Link>
-              </ul>
-            </div>
-          );
+          return <MobileGuestDataTable guest={guest} key={index} />;
         })}
       </div>
     </div>
