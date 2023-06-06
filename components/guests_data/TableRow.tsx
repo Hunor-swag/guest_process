@@ -21,13 +21,11 @@ export default function TableRow({ guest }: Props) {
 
   const deleteGuest = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/guests/${guest.id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      const data = await res.json();
+      console.log("01");
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests/${guest.id}`, {
+        method: "DELETE",
+      });
+      console.log("02");
       router.refresh();
     } catch (err) {
       console.log(err);

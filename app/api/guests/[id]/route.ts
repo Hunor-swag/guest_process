@@ -27,8 +27,10 @@ export async function PUT(
     const result = await query("control_panel", queryString, []);
 
     return new NextResponse(JSON.stringify(result), {
-      status: 201,
-      headers: { "Content-Type": "application/json" },
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
   } catch (error) {
     return new NextResponse(JSON.stringify(error), {
@@ -43,18 +45,24 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    console.log("1");
     const queryString = `DELETE FROM guests WHERE id=${params.id}`;
+    console.log("2");
 
     const result = await query("control_panel", queryString, []);
+    console.log("3");
 
     return new NextResponse(JSON.stringify(result), {
-      status: 201,
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return new NextResponse(JSON.stringify(error), {
+    console.log("4");
+    return new Response(JSON.stringify(error), {
       status: 500,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
   }
 }

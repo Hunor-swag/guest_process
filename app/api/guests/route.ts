@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   };
 
   return new NextResponse(JSON.stringify(json_response), {
-    status: 201,
+    status: 200,
     headers: { "Content-Type": "application/json" },
   });
 }
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     ])) as [];
 
     return new NextResponse(JSON.stringify(results), {
-      status: 201,
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
