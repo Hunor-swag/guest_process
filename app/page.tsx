@@ -9,20 +9,17 @@ export default function Home() {
   const router = useRouter();
   const session = useSession();
 
-  let subdomain = "";
+  const [subdomain, setSubdomain] = useState("");
 
   useEffect(() => {
-    let subdomainPromise = new Promise<string>((resolve, reject) => {
-      resolve(window.location.host.split(".")[0]);
-    });
+    const hostname = window.location.hostname;
+    const subdomain = hostname.split(".")[0];
+    setSubdomain(subdomain);
 
-    const getSubdomain = async () => {
-      subdomain = await subdomainPromise;
-    };
-
-    getSubdomain();
-
-    if (subdomain === "register") return;
+    if (subdomain === "register") {
+      console.log(subdomain);
+      return;
+    }
     if (session.data) {
       router.push("/user");
     } else {
@@ -30,7 +27,5 @@ export default function Home() {
     }
   }, []);
 
-  // useEffect(() => {}, []);
-
-  return <>{subdomain === "register" && <RegisterSystem />}</>;
+  return <div>{subdomain === "register" && <RegisterSystem />}</div>;
 }
