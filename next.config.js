@@ -8,13 +8,7 @@ const nextConfig = {
     domains: ["svgsilh.com"],
   },
   async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/auth/sign-in",
-        permanent: true,
-      },
-    ];
+    return [];
   },
 };
 
