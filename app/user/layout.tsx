@@ -3,7 +3,9 @@
 import Header from "@/components/header/Header";
 import MobileSidebar from "@/components/mobile_sidebar/MobileSidebar";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function UserInterfaceLayout({
   children,
@@ -11,8 +13,16 @@ export default function UserInterfaceLayout({
   children: React.ReactNode;
 }) {
   const [displaySidebar, setDisplaySidebar] = useState(true);
+  const session = useSession();
+  const router = useRouter();
 
-  return (
+  useEffect(() => {
+    if (!session.data) {
+      router.push("/auth/sign-in");
+    }
+  }, []);
+
+  return session.data ? (
     <div>
       <Sidebar displayed={displaySidebar} setDisplayed={setDisplaySidebar} />
       <MobileSidebar />
@@ -27,5 +37,7 @@ export default function UserInterfaceLayout({
         </div>
       </div>
     </div>
+  ) : (
+    <div>You don't have permission to the user interface. Please sign in.</div>
   );
 }

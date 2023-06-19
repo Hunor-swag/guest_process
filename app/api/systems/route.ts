@@ -1,49 +1,34 @@
 import { query } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-<<<<<<< HEAD
 import bcrypt from "bcryptjs";
 
-export async function POST(req: NextRequest) {
-  try {
-    const { hotel_name, person_name, contact_email, contact_phone, password } =
-=======
-import { query } from "../../../lib/db";
-
 export async function GET(req: NextRequest) {
-  const queryString = "SELECT * FROM hotel_systems";
-  const results = (await query("control_panel", queryString, [])) as [];
+  try {
+    const queryString = `
+      SELECT * FROM hotel_systems;
+    `;
 
-  let json_response = {
-    status: "success",
-    results: results.length,
-    data: results,
-  };
+    const results = await query("control_panel", queryString, []);
 
-  return new NextResponse(JSON.stringify(json_response), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+    return new NextResponse(JSON.stringify(results), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error: any) {
+    let error_response = {
+      status: "error",
+      message: error.message,
+    };
+    return new NextResponse(JSON.stringify(error_response), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 export async function POST(req: NextRequest) {
   try {
-<<<<<<< HEAD
-    const queryString =
-      "INSERT INTO hotel_systems (name, contact_email, contact_phone) VALUES (?, ?, ?)";
-
-    const { name, contact_email, contact_phone } = await req.json();
-
-    const results = (await query("control_panel", queryString, [
-      name,
-      contact_email,
-      contact_phone,
-    ])) as [];
-
-    return new NextResponse(JSON.stringify(results), {
-      status: 201,
-=======
-    const { hotel_name, person_name, email, phone_number, password } =
->>>>>>> 7bf0eb26a9886289a7cf69331781400627656bd0
+    const { hotel_name, person_name, contact_email, contact_phone, password } =
       await req.json();
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -87,7 +72,6 @@ export async function POST(req: NextRequest) {
 
     return new NextResponse(JSON.stringify(results), {
       status: 200,
->>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
       headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {

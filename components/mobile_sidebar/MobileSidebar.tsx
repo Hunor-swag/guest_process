@@ -1,8 +1,7 @@
 "use client";
 
-import { Bars3Icon, XCircleIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useState, useEffect, useRef } from "react";
-import SidebarItem from "../sidebar/SidebarItem";
 import SidebarMenu from "../sidebar/SidebarMenu";
 
 export default function MobileSidebar() {
@@ -52,9 +51,8 @@ export default function MobileSidebar() {
       </div>
       <div
         ref={sidebarRef}
-        className={`lg:hidden w-56 h-full z-30 pt-16 fixed top-0 left-0 bg-[#181C32] ease-in-out duration-200 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } `}
+        className={`lg:hidden w-56 h-full z-30 pt-16 fixed top-0 -left-56 bg-[#181C32] ease-in-out duration-200 transition-all
+        ${isOpen ? "translate-x-full" : "translate-x-0"} `}
       >
         <span className="mx-5 text-slate-200 font-semibold">LOGO</span>
         <SidebarMenu

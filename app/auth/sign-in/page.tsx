@@ -51,18 +51,17 @@ export default function SignIn() {
       return;
     }
 
-    const result = await signIn("credentials", {
+    const user = await signIn("credentials", {
       email: values.email,
       password: values.password,
+      redirect: false,
     });
 
-    if (!result || result.error) {
-      // Handle sign-in error
-      console.error("Error at authentication");
-    } else {
-      // Sign-in successful
-      console.log("Sign-in successful");
+    if (!user) {
+      console.log("error signing in");
     }
+
+    router.push("/user");
   };
 
   const setValidationError = (name: string, message: string) => {

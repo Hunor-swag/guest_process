@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import LanguageSelectorMenu from "../language/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
+import { signOut } from "next-auth/react";
 
 function ProfileIcon() {
   const dict = useDictionary();
@@ -46,12 +47,12 @@ function ProfileIcon() {
               <span>Email...</span>
             </div>
           </div>
-          <Link className="hver:text-[#009ef7]" href="/user/profile">
+          <Link className="hover:text-[#009ef7]" href="/user/profile">
             <li>{dict.userHeader.myProfile}</li>
           </Link>
-          <Link className="hver:text-[#009ef7]" href="/user/#">
+          <button className="hover:text-[#009ef7]" onClick={() => signOut()}>
             <li>{dict.userHeader.signOut}</li>
-          </Link>
+          </button>
         </ul>
       </div>
     </div>

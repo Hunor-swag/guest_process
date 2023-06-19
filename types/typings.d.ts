@@ -10,3 +10,11 @@ export type Guest = {
   address: string;
   id_number: string;
 };
+
+export type User = {
+  id: number;
+  email: string;
+  name: string;
+  password: string;
+  phone_number: string;
+};

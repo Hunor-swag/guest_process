@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    console.log("user returned by signin api endpoint: ", user);
     return new NextResponse(JSON.stringify(user), {
       status: 200,
       headers: { "Content-Type": "application/json" },
