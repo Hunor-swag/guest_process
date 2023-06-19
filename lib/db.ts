@@ -11,9 +11,8 @@ export async function query(
       port: process.env.NEXT_PUBLIC_MYSQL_DATABASE_PORT
         ? parseInt(process.env.NEXT_PUBLIC_MYSQL_DATABASE_PORT)
         : 3306,
-      user: process.env.NEXT_PUBLIC_MYSQL_DATABASE_USER || "guestprocess",
-      password:
-        process.env.NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD || "GuestProcess#88",
+      user: process.env.NEXT_PUBLIC_MYSQL_DATABASE_USER,
+      password: process.env.NEXT_PUBLIC_MYSQL_DATABASE_PASSWORD,
       database: databaseName,
     });
 

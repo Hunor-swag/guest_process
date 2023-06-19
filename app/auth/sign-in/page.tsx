@@ -10,10 +10,15 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import useDictionary from "@/hooks/useDictionary";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignIn() {
   const dict = useDictionary().auth;
   const router = useRouter();
+
+  const getSubdomain = () => {
+    return window.location.hostname.split(".")[0];
+  };
 
   const [values, setValues] = useState({
     email: "",
@@ -37,14 +42,27 @@ export default function SignIn() {
     return errorArray.every((error) => error === "");
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    router.push("/user");
-    // if (!validate()) {
-    //   // todo display dialog
-    //   return;
-    // }
+    // router.push("/user");
+    if (!validate()) {
+      // todo display dialog
+      return;
+    }
+
+    const result = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+    });
+
+    if (!result || result.error) {
+      // Handle sign-in error
+      console.error("Error at authentication");
+    } else {
+      // Sign-in successful
+      console.log("Sign-in successful");
+    }
   };
 
   const setValidationError = (name: string, message: string) => {

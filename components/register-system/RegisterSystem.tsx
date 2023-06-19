@@ -13,7 +13,6 @@ import {
   validateRequiredField,
   validateSecondPassword,
 } from "@/functions/validations";
-import { useRouter } from "next/router";
 import Input from "./Input";
 
 export default function RegisterSystem() {
@@ -62,18 +61,20 @@ export default function RegisterSystem() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // if (!validate()) {
-    //   setShowErrorDialog(true);
-    //   return;
-    // }
+    if (!validate()) {
+      console.log("must fill all fields");
+      return;
+    }
     // resetForm();
     // setShowSuccessDialog(true);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/systems`, {
       method: "POST",
       body: JSON.stringify({
-        name: values.hotel_name.value.toLowerCase(),
+        hotel_name: values.hotel_name.value.toLowerCase(),
+        person_name: values.person_name.value,
         contact_email: values.email.value,
         contact_phone: values.phone.value,
+        password: values.password.value,
       }),
     });
     console.log("done");

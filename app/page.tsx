@@ -1,13 +1,13 @@
 "use client";
 
 import RegisterSystem from "@/components/register-system/RegisterSystem";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const router = useRouter();
-  const session = useSession();
+  const { data: session } = useSession();
 
   const [subdomain, setSubdomain] = useState("");
 
@@ -15,12 +15,12 @@ export default function Home() {
     const hostname = window.location.hostname;
     const subdomain = hostname.split(".")[0];
     setSubdomain(subdomain);
+    console.log(session);
 
     if (subdomain === "register") {
-      console.log(subdomain);
       return;
     }
-    if (session.data) {
+    if (session) {
       router.push("/user");
     } else {
       router.push("/auth/sign-in");
