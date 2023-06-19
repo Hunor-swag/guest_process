@@ -1,17 +1,20 @@
-"use client";
-
-import LanguageSelectorMenu from "@/components/LanguageSelectorMenu";
-import useDictionary from "@/hooks/useDictionary";
-import Link from "next/link";
+import AuthLink from "@/components/auth/AuthLink";
 import React from "react";
+import dynamic from "next/dynamic";
+
+const LanguageSelectorMenu = dynamic(
+  () => import("@/components/language/LanguageSelectorMenu"),
+  {
+    loading: () => <p>Loading...</p>,
+    ssr: false,
+  }
+);
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const dict = useDictionary();
-
   return (
     <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-orange-400">
       <div className="flex justify-center py-6 lg:py-0 px-20 lg:w-1/2 items-center">
@@ -32,21 +35,9 @@ export default function AuthLayout({
               <LanguageSelectorMenu />
             </div>
             <div className="flex flex-row flex-wrap">
-              <div className="mx-1">
-                <Link className="link" href="/#">
-                  {dict.links.terms}
-                </Link>
-              </div>
-              <div className="mx-1">
-                <Link className="link" href="/#">
-                  {dict.links.plans}
-                </Link>
-              </div>
-              <div className="mx-1">
-                <Link className="link" href="/#">
-                  {dict.links.contact}
-                </Link>
-              </div>
+              <AuthLink id={1} />
+              <AuthLink id={2} />
+              <AuthLink id={3} />
             </div>
           </div>
         </div>

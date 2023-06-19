@@ -61,20 +61,29 @@ export default function RegisterSystemPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!validate()) {
-      setShowErrorDialog(true);
-      return;
-    }
-    resetForm();
+    // if (!validate()) {
+    //   setShowErrorDialog(true);
+    //   return;
+    // }
+    // resetForm();
     setShowSuccessDialog(true);
-    await fetch("http://localhost:3000/api/systems", {
-      method: "POST",
-      body: JSON.stringify({
-        name: values.restaurant_name.value.toLowerCase(),
-        contact_email: values.email.value,
-        contact_phone: values.phone.value,
-      }),
-    });
+
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/systems`, {
+        method: "POST",
+        body: JSON.stringify({
+          name: values.restaurant_name.value.toLowerCase(),
+          contact_email: values.email.value,
+          contact_phone: values.phone.value,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const resetForm = () => {

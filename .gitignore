@@ -38,3 +38,5 @@ next-env.d.ts
 sftp.json
 
 _static
+
+test.rest

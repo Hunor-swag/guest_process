@@ -5,7 +5,7 @@ import { Language } from "@/types/typings";
 import { MouseEvent, useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
-function LanguageSelectorMenu() {
+export default function LanguageSelectorMenu() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const LANGUAGE_SELECTOR_ID = "language-selector";
   const languages = [
@@ -58,13 +58,13 @@ function LanguageSelectorMenu() {
         id={LANGUAGE_SELECTOR_ID}
         aria-expanded={isOpen}
       >
-        {/* <ReactCountryFlag
+        <ReactCountryFlag
           countryCode={getCountryCode(lang.key)}
           key={lang.key}
           className="rounded-full mr-3"
           style={{ height: "30px", width: "30px" }}
           svg
-        /> */}
+        />
         {languages.find((l) => l.key === lang.key)?.name}
         <svg
           className="-mr-1 ml-2 h-5 w-5"
@@ -104,5 +104,3 @@ function LanguageSelectorMenu() {
     </div>
   );
 }
-
-export default LanguageSelectorMenu;

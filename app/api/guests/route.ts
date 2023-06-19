@@ -13,7 +13,9 @@ export async function GET(req: NextRequest) {
 
   return new NextResponse(JSON.stringify(json_response), {
     status: 201,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 }
 
