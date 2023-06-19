@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 import AuthLink from "@/components/auth/AuthLink";
-=======
-"use client";
-
-import useDictionary from "@/hooks/useDictionary";
-import dynamic from "next/dynamic";
-import Link from "next/link";
->>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
 import React from "react";
 import dynamic from "next/dynamic";
 
@@ -15,13 +7,6 @@ const LanguageSelectorMenu = dynamic(
   {
     loading: () => <p>Loading...</p>,
     ssr: false,
-  }
-);
-
-const LanguageSelectorMenu = dynamic(
-  () => import("@/components/LanguageSelectorMenu"),
-  {
-    loading: () => <p>Loading...</p>,
   }
 );
 
@@ -49,29 +34,10 @@ export default function AuthLayout({
             <div>
               <LanguageSelectorMenu />
             </div>
-<<<<<<< HEAD
             <div className="flex flex-row flex-wrap">
               <AuthLink id={1} />
               <AuthLink id={2} />
               <AuthLink id={3} />
-=======
-            <div className="flex flex-row flex-wrap items-center">
-              <div className="mx-1">
-                <Link className="link" href="/#">
-                  {dict.links.terms}
-                </Link>
-              </div>
-              <div className="mx-1">
-                <Link className="link" href="/#">
-                  {dict.links.plans}
-                </Link>
-              </div>
-              <div className="mx-1">
-                <Link className="link" href="/#">
-                  {dict.links.contact}
-                </Link>
-              </div>
->>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
             </div>
           </div>
         </div>
