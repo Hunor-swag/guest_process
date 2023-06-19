@@ -1,3 +1,4 @@
+import { query } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "../../../lib/db";
 
@@ -19,6 +20,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+<<<<<<< HEAD
     const queryString =
       "INSERT INTO hotel_systems (name, contact_email, contact_phone) VALUES (?, ?, ?)";
 
@@ -32,6 +34,32 @@ export async function POST(req: NextRequest) {
 
     return new NextResponse(JSON.stringify(results), {
       status: 201,
+=======
+    const { hotel_name, person_name, email, phone_number, password } =
+      await req.json();
+
+    const queryString = `CREATE SCHEMA IF NOT EXISTS ?;
+      CREATE TABLE IF NOT EXISTS ?.users (
+          id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+          email VARCHAR(255) NOT NULL,
+          phone_number VARCHAR(255) NOT NULL,
+          password VARCHAR(255) NOT NULL,
+      INSERT INTO ?.users (name, email, phone_number, password) VALUES (?, ?, ?, ?)
+        `;
+
+    const results = (await query("control_panel", queryString, [
+      hotel_name,
+      hotel_name,
+      hotel_name,
+      person_name,
+      email,
+      phone_number,
+      password,
+    ])) as [];
+
+    return new NextResponse(JSON.stringify(results), {
+      status: 200,
+>>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
       headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {

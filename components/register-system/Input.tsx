@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {
   label: string;
   subLabel?: string;
@@ -10,7 +8,12 @@ type Props = {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 };
 
-function Input({ label, subLabel, errorMessage, ...props }: Props) {
+export default function Input({
+  label,
+  subLabel,
+  errorMessage,
+  ...props
+}: Props) {
   return (
     <div className="w-full my-2">
       <span className="text-sm">{label}</span>
@@ -20,5 +23,3 @@ function Input({ label, subLabel, errorMessage, ...props }: Props) {
     </div>
   );
 }
-
-export default Input;

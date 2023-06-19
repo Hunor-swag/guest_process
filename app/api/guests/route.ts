@@ -12,10 +12,15 @@ export async function GET(req: NextRequest) {
   };
 
   return new NextResponse(JSON.stringify(json_response), {
+<<<<<<< HEAD
     status: 201,
     headers: {
       "Content-Type": "application/json",
     },
+=======
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+>>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
   });
 }
 
@@ -34,7 +39,7 @@ export async function POST(req: NextRequest) {
     ])) as [];
 
     return new NextResponse(JSON.stringify(results), {
-      status: 201,
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
