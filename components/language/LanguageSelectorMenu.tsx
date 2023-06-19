@@ -5,7 +5,7 @@ import { Language } from "@/types/typings";
 import { MouseEvent, useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
-function LanguageSelectorMenu() {
+export default function LanguageSelectorMenu() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const LANGUAGE_SELECTOR_ID = "language-selector";
   const languages = [
@@ -104,5 +104,3 @@ function LanguageSelectorMenu() {
     </div>
   );
 }
-
-export default LanguageSelectorMenu;

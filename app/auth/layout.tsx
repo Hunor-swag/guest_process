@@ -1,9 +1,22 @@
+<<<<<<< HEAD
+import AuthLink from "@/components/auth/AuthLink";
+=======
 "use client";
 
 import useDictionary from "@/hooks/useDictionary";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+>>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
 import React from "react";
+import dynamic from "next/dynamic";
+
+const LanguageSelectorMenu = dynamic(
+  () => import("@/components/language/LanguageSelectorMenu"),
+  {
+    loading: () => <p>Loading...</p>,
+    ssr: false,
+  }
+);
 
 const LanguageSelectorMenu = dynamic(
   () => import("@/components/LanguageSelectorMenu"),
@@ -17,8 +30,6 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const dict = useDictionary();
-
   return (
     <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-orange-400">
       <div className="flex justify-center py-6 lg:py-0 px-20 lg:w-1/2 items-center">
@@ -38,6 +49,12 @@ export default function AuthLayout({
             <div>
               <LanguageSelectorMenu />
             </div>
+<<<<<<< HEAD
+            <div className="flex flex-row flex-wrap">
+              <AuthLink id={1} />
+              <AuthLink id={2} />
+              <AuthLink id={3} />
+=======
             <div className="flex flex-row flex-wrap items-center">
               <div className="mx-1">
                 <Link className="link" href="/#">
@@ -54,6 +71,7 @@ export default function AuthLayout({
                   {dict.links.contact}
                 </Link>
               </div>
+>>>>>>> 340fe035944751a5ef2ef93a38377c3c98919af0
             </div>
           </div>
         </div>
