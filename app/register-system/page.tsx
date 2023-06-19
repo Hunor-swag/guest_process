@@ -1,7 +1,6 @@
 "use client";
 
 import { FocusEvent, FormEvent, useState } from "react";
-import Input from "../../components/add-system/Input";
 import useDictionary from "@/hooks/useDictionary";
 import Link from "next/link";
 import {
@@ -14,6 +13,7 @@ import {
   validateRequiredField,
   validateSecondPassword,
 } from "@/functions/validations";
+import Input from "@/components/register-system/Input";
 
 export default function RegisterSystemPage() {
   const defaultObject = { value: "", error: "" };
@@ -131,8 +131,8 @@ export default function RegisterSystemPage() {
           errorMessage={values.restaurant_name.error}
           subLabel={dict.registerSystem.restaurantNameSubLabel}
           value={values.restaurant_name.value}
-          onChange={(e) => handleInputChange(e, "restaurant_name")}
-          onBlur={(e) =>
+          onChange={(e: any) => handleInputChange(e, "restaurant_name")}
+          onBlur={(e: any) =>
             setErrorMessage(
               e,
               "restaurant_name",
@@ -145,8 +145,8 @@ export default function RegisterSystemPage() {
           label={dict.registerSystem.personName}
           errorMessage={values.person_name.error}
           value={values.person_name.value}
-          onChange={(e) => handleInputChange(e, "person_name")}
-          onBlur={(e) =>
+          onChange={(e: any) => handleInputChange(e, "person_name")}
+          onBlur={(e: any) =>
             setErrorMessage(
               e,
               "person_name",
@@ -160,8 +160,8 @@ export default function RegisterSystemPage() {
             label={dict.registerSystem.email}
             errorMessage={values.email.error}
             value={values.email.value}
-            onChange={(e) => handleInputChange(e, "email")}
-            onBlur={(e) =>
+            onChange={(e: any) => handleInputChange(e, "email")}
+            onBlur={(e: any) =>
               setErrorMessage(
                 e,
                 "email",
@@ -174,8 +174,8 @@ export default function RegisterSystemPage() {
             label={dict.registerSystem.phoneNumber}
             errorMessage={values.phone.error}
             value={values.phone.value}
-            onChange={(e) => handleInputChange(e, "phone")}
-            onBlur={(e) =>
+            onChange={(e: any) => handleInputChange(e, "phone")}
+            onBlur={(e: any) =>
               setErrorMessage(
                 e,
                 "phone",
@@ -190,8 +190,8 @@ export default function RegisterSystemPage() {
             label={dict.registerSystem.password}
             errorMessage={values.password.error}
             value={values.password.value}
-            onChange={(e) => handleInputChange(e, "password")}
-            onBlur={(e) =>
+            onChange={(e: any) => handleInputChange(e, "password")}
+            onBlur={(e: any) =>
               setErrorMessage(
                 e,
                 "password",
@@ -204,8 +204,8 @@ export default function RegisterSystemPage() {
             label={dict.registerSystem.passwordConfirmation}
             errorMessage={values.password_confirmation.error}
             value={values.password_confirmation.value}
-            onChange={(e) => handleInputChange(e, "password_confirmation")}
-            onBlur={(e) =>
+            onChange={(e: any) => handleInputChange(e, "password_confirmation")}
+            onBlur={(e: any) =>
               setErrorMessage(
                 e,
                 "password_confirmation",
