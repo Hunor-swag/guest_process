@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
       SELECT * FROM ${hotel_name}.users WHERE email = ?;
     `;
 
-    const results = await query(hotel_name, queryString, [email]);
-    const user = results[0];
+    const result = await query(hotel_name, queryString, [email]);
+    const user = result;
 
     if (!user) {
       return new NextResponse(JSON.stringify({ message: "No user found" }), {
