@@ -2,7 +2,11 @@
 
 import { createContext, useContext, useState } from "react";
 
-const GlobalContext = createContext({});
+interface GlobalContextType {
+  hotel_name: string;
+}
+
+const GlobalContext = createContext<GlobalContextType | null>(null);
 
 export const GlobalContextProvider = ({
   children,

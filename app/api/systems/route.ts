@@ -32,13 +32,6 @@ export async function POST(req: NextRequest) {
       await req.json();
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log(
-      hotel_name,
-      person_name,
-      contact_email,
-      contact_phone,
-      hashedPassword
-    );
 
     const createDatabaseQueryString = `
       CREATE DATABASE IF NOT EXISTS ${hotel_name};
@@ -90,7 +83,6 @@ export async function POST(req: NextRequest) {
       status: "error",
       message: error.message,
     };
-    console.log(error_response);
     return new NextResponse(JSON.stringify(error_response), {
       status: 500,
       headers: { "Content-Type": "application/json" },

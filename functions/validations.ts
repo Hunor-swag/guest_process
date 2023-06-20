@@ -62,6 +62,10 @@ export const passwordEntered = (password: string, text: TextObject) => {
   return password === "" ? text.passwordRequired : "";
 };
 
+export const isPasswordEntered = (password: string) => {
+  return password !== "";
+};
+
 export const validatePassword = (password: string, text: TextObject) => {
   let error = "";
   if (password === "") error = text.passwordRequired;

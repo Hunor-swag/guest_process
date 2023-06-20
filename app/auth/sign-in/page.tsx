@@ -2,7 +2,12 @@
 
 import AuthInput from "@/components/auth/AuthInput";
 import Link from "next/link";
-import { passwordEntered, validateEmail } from "@/functions/validations";
+import {
+  isPasswordEntered,
+  isValidEmail,
+  passwordEntered,
+  validateEmail,
+} from "@/functions/validations";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import useDictionary from "@/hooks/useDictionary";
@@ -37,14 +42,11 @@ export default function SignIn() {
   };
 
   const validate = () => {
-    // const errorArray = [
-    //   validateEmail(values.email, dict.validationTexts),
-    //   passwordEntered(values.password, dict.validationTexts),
-    // ];
-    if (validateEmail(values.email, dict.validationTexts) !== "") {
+    if (!isValidEmail(values.email)) {
       toast("Invalid Email format!", {
         position: "top-right",
         autoClose: 3000,
+        type: "error",
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -54,10 +56,11 @@ export default function SignIn() {
       });
       return false;
     }
-    if (passwordEntered(values.password, dict.validationTexts) !== "") {
+    if (!isPasswordEntered(values.password)) {
       toast("Please enter your password!", {
         position: "top-right",
         autoClose: 3000,
+        type: "error",
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -77,6 +80,7 @@ export default function SignIn() {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
+        type: "error",
         closeOnClick: true,
         draggable: true,
         pauseOnHover: true,
@@ -90,6 +94,7 @@ export default function SignIn() {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
+        type: "error",
         closeOnClick: true,
         draggable: true,
         pauseOnHover: true,

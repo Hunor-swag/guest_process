@@ -45,10 +45,10 @@ export const authOptions: NextAuthOptions = {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-          console.log("Invalid password");
+          // console.log("Invalid password");
           return null;
         } else {
-          console.log("User found & authenticated");
+          // console.log("User found & authenticated");
           return user;
         }
       },

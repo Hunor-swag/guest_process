@@ -16,9 +16,9 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-orange-400">
+    <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-gradient-to-b from-blue-400 to-gray-200">
       <div className="flex justify-center py-6 lg:py-0 px-20 lg:w-1/2 items-center">
-        <h1>
+        <h1 className="text-2xl font-semibold text-gray-600 ">
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia
           possimus optio repellendus magni minima doloribus natus! Ducimus et
           officiis facilis ad cupiditate natus doloribus laudantium, dolor
@@ -34,7 +34,7 @@ export default function AuthLayout({
             <div>
               <LanguageSelectorMenu />
             </div>
-            <div className="flex flex-row flex-wrap">
+            <div className="flex flex-row flex-wrap items-center">
               <AuthLink id={1} />
               <AuthLink id={2} />
               <AuthLink id={3} />

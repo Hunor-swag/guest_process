@@ -11,8 +11,8 @@ export default function Home() {
   const context = useGlobalContext();
 
   useEffect(() => {
-    console.log(session);
-    console.log(context);
+    // console.log(session);
+    // console.log(context);
 
     if (session) {
       router.push("/user");

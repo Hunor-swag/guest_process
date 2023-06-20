@@ -8,7 +8,6 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  console.log(req);
   try {
     const json = await req.json();
 
