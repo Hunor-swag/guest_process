@@ -1,6 +1,5 @@
 import { getServerSession } from "next-auth";
 import "./globals.css";
-import Login from "@/components/Login";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { SessionProvider } from "next-auth/react";
 import NextAuthProvider from "./NextAuthProvider";

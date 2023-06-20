@@ -1,8 +1,5 @@
 "use client";
 
-// egybol fokuszt kapjon az email mezo
-// ahol rosszul van kitoltve, fokuszt kap az a mezo piros kerettel
-
 import AuthInput from "@/components/auth/AuthInput";
 import Link from "next/link";
 import { passwordEntered, validateEmail } from "@/functions/validations";
@@ -10,7 +7,10 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import useDictionary from "@/hooks/useDictionary";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { SignInResponse, signIn } from "next-auth/react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 
 export default function SignIn() {
   const dict = useDictionary().auth;
@@ -19,6 +19,8 @@ export default function SignIn() {
   const getSubdomain = () => {
     return window.location.hostname.split(".")[0];
   };
+
+  const subdomain = useGlobalContext();
 
   const [values, setValues] = useState({
     email: "",
@@ -35,21 +37,74 @@ export default function SignIn() {
   };
 
   const validate = () => {
-    const errorArray = [
-      validateEmail(values.email, dict.validationTexts),
-      passwordEntered(values.password, dict.validationTexts),
-    ];
-    return errorArray.every((error) => error === "");
+    // const errorArray = [
+    //   validateEmail(values.email, dict.validationTexts),
+    //   passwordEntered(values.password, dict.validationTexts),
+    // ];
+    if (validateEmail(values.email, dict.validationTexts) !== "") {
+      toast("Invalid Email format!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        pauseOnHover: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return false;
+    }
+    if (passwordEntered(values.password, dict.validationTexts) !== "") {
+      toast("Please enter your password!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        pauseOnHover: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return false;
+    }
+    // return errorArray.every((error) => error === "");
+    return true;
+  };
+
+  const authenticate = (user: SignInResponse | undefined) => {
+    if (!user) {
+      toast("No user data found.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        pauseOnHover: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    if (user?.error) {
+      toast("Invalid Credentials!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        pauseOnHover: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // router.push("/user");
-    if (!validate()) {
-      // todo display dialog
-      return;
-    }
+    if (!validate()) return;
 
     const user = await signIn("credentials", {
       email: values.email,
@@ -58,7 +113,9 @@ export default function SignIn() {
     });
 
     if (!user) {
-      console.log("error signing in");
+    }
+    if (!authenticate(user)) {
+      return;
     }
 
     router.push("/user");
@@ -128,6 +185,7 @@ export default function SignIn() {
           {dict.signIn.signUp}
         </Link>
       </div>
+      <ToastContainer className="text-red-700" />
     </form>
   );
 }
