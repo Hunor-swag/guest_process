@@ -1,6 +1,6 @@
 "use client";
 
-import RegisterSystem from "@/components/register-system/RegisterSystem";
+import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const router = useRouter();
   const { data: session } = useSession();
+  const context = useGlobalContext();
 
   useEffect(() => {
     console.log(session);
+    console.log(context);
 
     if (session) {
       router.push("/user");

@@ -4,6 +4,7 @@ import Login from "@/components/Login";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 import { SessionProvider } from "next-auth/react";
 import NextAuthProvider from "./NextAuthProvider";
+import { GlobalContextProvider } from "@/components/context/GlobalContextProvider";
 
 export default async function RootLayout({
   children,
@@ -17,7 +18,9 @@ export default async function RootLayout({
   return (
     <html>
       <body>
-        <NextAuthProvider session={session}>{children}</NextAuthProvider>
+        <GlobalContextProvider>
+          <NextAuthProvider session={session}>{children}</NextAuthProvider>
+        </GlobalContextProvider>
       </body>
     </html>
   );
