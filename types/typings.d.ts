@@ -18,3 +18,11 @@ export type User = {
   password: string;
   phone_number: string;
 };
+
+export type HotelSystemObject = {
+  name: string;
+  subdomain: string;
+  contact_name: string;
+  contact_email: string;
+  contact_phone: string;
+};
