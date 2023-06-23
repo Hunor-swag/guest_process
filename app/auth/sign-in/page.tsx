@@ -22,13 +22,6 @@ export default function SignIn() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (session) {
-      router.push("/user");
-      return;
-    }
-  }, [session]);
-
   const subdomain = useGlobalContext();
 
   const [values, setValues] = useState({

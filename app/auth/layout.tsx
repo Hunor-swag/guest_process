@@ -1,8 +1,12 @@
+"use client";
+
 import AuthLink from "@/components/auth/AuthLink";
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LanguageSelectorMenu = dynamic(
   () => import("@/components/language/LanguageSelectorMenu"),
@@ -17,7 +21,15 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) {
+      router.push("/user");
+      return;
+    }
+  }, [session]);
 
   return session ? (
     <div>You are already logged in.</div>
