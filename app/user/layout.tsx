@@ -13,16 +13,16 @@ export default function UserInterfaceLayout({
   children: React.ReactNode;
 }) {
   const [displaySidebar, setDisplaySidebar] = useState(true);
-  const session = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (!session.data) {
+    if (!session) {
       router.push("/auth/sign-in");
     }
   }, []);
 
-  return session.data ? (
+  return session ? (
     <div>
       <Sidebar displayed={displaySidebar} setDisplayed={setDisplaySidebar} />
       <MobileSidebar />

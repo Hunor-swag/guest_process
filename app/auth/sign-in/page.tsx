@@ -12,7 +12,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import useDictionary from "@/hooks/useDictionary";
 import { useRouter } from "next/navigation";
-import { SignInResponse, signIn } from "next-auth/react";
+import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobalContext } from "@/components/context/GlobalContextProvider";
@@ -20,6 +20,14 @@ import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 export default function SignIn() {
   const dict = useDictionary().auth;
   const router = useRouter();
+  const { data: session } = useSession();
+
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push("/user");
+  //     return;
+  //   }
+  // }, []);
 
   const getSubdomain = () => {
     return window.location.hostname.split(".")[0];

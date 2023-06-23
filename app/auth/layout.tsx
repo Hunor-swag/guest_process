@@ -1,6 +1,8 @@
 import AuthLink from "@/components/auth/AuthLink";
 import React from "react";
 import dynamic from "next/dynamic";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const LanguageSelectorMenu = dynamic(
   () => import("@/components/language/LanguageSelectorMenu"),
@@ -10,12 +12,16 @@ const LanguageSelectorMenu = dynamic(
   }
 );
 
-export default function AuthLayout({
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
+  const session = await getServerSession(authOptions);
+
+  return session ? (
+    <div>You are already logged in.</div>
+  ) : (
     <div className="min-h-screen flex flex-col-reverse lg:flex-row w-screen bg-gradient-to-b from-blue-400 to-gray-200">
       <div className="flex justify-center py-6 lg:py-0 px-20 lg:w-1/2 items-center">
         <h1 className="text-2xl font-semibold text-gray-600 ">
