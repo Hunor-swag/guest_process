@@ -53,7 +53,7 @@ export const GlobalContextProvider = ({
       })
       .catch((error) => {
         setHotelObject(null);
-        console.log("Error:", error);
+        console.log(error);
       });
   }, [hotelName]);
 
