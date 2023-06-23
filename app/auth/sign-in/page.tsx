@@ -22,16 +22,12 @@ export default function SignIn() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push("/user");
-  //     return;
-  //   }
-  // }, []);
-
-  const getSubdomain = () => {
-    return window.location.hostname.split(".")[0];
-  };
+  useEffect(() => {
+    if (session) {
+      router.push("/user");
+      return;
+    }
+  }, [session]);
 
   const subdomain = useGlobalContext();
 
