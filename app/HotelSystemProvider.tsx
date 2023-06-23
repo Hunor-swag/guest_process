@@ -1,6 +1,8 @@
 "use client";
 
+import SystemNotFound from "@/components/SystemNotFound";
 import { useGlobalContext } from "@/components/context/GlobalContextProvider";
+import { containerClasses } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,29 +22,35 @@ function HotelSystemProvider({ children }: Props) {
     if (context && context.hotel_object !== undefined) {
       setIsLoading(false);
     }
-  }, [context]);
 
-  useEffect(() => {
-    if (isLoading) return;
-    console.log("loading...");
-
-    if (!context || !context.hotel_object) {
-      console.log("not found");
-      router.push("/system-not-found");
-    } else if (session) {
-      console.log("session");
-      router.push("/user");
-    } else {
-      console.log("sign-in");
-      router.push("/auth/sign-in");
+    if (
+      context &&
+      context.hotel_object !== undefined &&
+      context.hotel_object !== null
+    ) {
+      if (session) {
+        router.push("/user");
+      } else {
+        router.push("/auth/sign-in");
+      }
     }
-  }, [isLoading, context, session, router]);
+  }, [context, router, session]);
 
   if (isLoading) {
     return <div>Loading...</div>; // Show a loading state while the context is being fetched
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      {context &&
+      context.hotel_object !== undefined &&
+      context.hotel_object !== null ? (
+        children
+      ) : (
+        <SystemNotFound />
+      )}
+    </>
+  );
 }
 
 export default HotelSystemProvider;
