@@ -16,7 +16,7 @@ const LanguageSelectorMenu = dynamic(
   }
 );
 
-export default async function AuthLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -25,11 +25,12 @@ export default async function AuthLayout({
   const router = useRouter();
 
   useEffect(() => {
+    console.log(session);
     if (session) {
       router.push("/user");
       return;
     }
-  }, [session]);
+  }, []);
 
   return session ? (
     <div>You are already logged in.</div>
