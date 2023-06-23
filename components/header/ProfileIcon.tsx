@@ -8,13 +8,11 @@ import LanguageSelectorMenu from "../language/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
 import { signOut } from "next-auth/react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
-import { useRouter } from "next/navigation";
 
 function ProfileIcon() {
   const dict = useDictionary();
   const context = useGlobalContext();
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
   const handleMouseEnter = () => {
     setIsOpen(true);
   };
@@ -56,12 +54,11 @@ function ProfileIcon() {
           </Link>
           <button
             className="hover:text-[#009ef7]"
-            onClick={() => {
-              signOut();
-              router.push(
-                `https://${context?.hotel_object?.subdomain}.putboot.dev`
-              );
-            }}
+            onClick={() =>
+              signOut({
+                callbackUrl: "/",
+              })
+            }
           >
             <li>{dict.userHeader.signOut}</li>
           </button>
