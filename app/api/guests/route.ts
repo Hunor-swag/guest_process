@@ -36,12 +36,25 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    const subdomain = req.headers.get("host")?.split(".")[0];
+
+    if (!subdomain) {
+      return new NextResponse("No host", {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    const db_name = subdomain?.replaceAll("-", "_");
+
     const queryString =
       "INSERT INTO guests (name, email, address, id_number) VALUES (?, ?, ?, ?)";
 
     const { name, email, address, id_number } = await req.json();
 
-    const results = (await query("control_panel", queryString, [
+    const results = (await query(db_name, queryString, [
       name,
       email,
       address,
