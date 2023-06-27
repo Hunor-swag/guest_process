@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
     const db_name = subdomain?.replaceAll("-", "_");
 
-    console.log(subdomain);
+    // console.log(subdomain);
 
     const queryString = "SELECT * FROM guests";
     const results = (await query(db_name, queryString, [])) as [];
