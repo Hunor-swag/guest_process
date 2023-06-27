@@ -28,9 +28,7 @@ function HotelSystemProvider({ children }: Props) {
       context.hotel_object !== undefined &&
       context.hotel_object !== null
     ) {
-      if (session) {
-        router.push("/user");
-      } else {
+      if (!session) {
         router.push("/auth/sign-in");
       }
     }

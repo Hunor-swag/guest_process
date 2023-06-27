@@ -16,7 +16,7 @@ export const GlobalContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const hotelName =
+  const hotelSubdomain =
     typeof window !== "undefined" ? window.location.host.split(".")[0] : "";
 
   const [hotelObject, setHotelObject] = useState<
@@ -44,7 +44,7 @@ export const GlobalContextProvider = ({
     fetchHotelData()
       .then((data) => {
         const foundHotelObject = data.find(
-          (hotel: HotelSystemObject) => hotel.name === hotelName
+          (hotel: HotelSystemObject) => hotel.subdomain === hotelSubdomain
         );
         if (!foundHotelObject) {
           throw new Error("Hotel system doesn't exist!");
@@ -55,11 +55,11 @@ export const GlobalContextProvider = ({
         setHotelObject(null);
         console.log(error);
       });
-  }, [hotelName]);
+  }, [hotelSubdomain]);
 
   return (
     <GlobalContext.Provider
-      value={{ hotel_name: hotelName, hotel_object: hotelObject }}
+      value={{ hotel_name: hotelSubdomain, hotel_object: hotelObject }}
     >
       {children}
     </GlobalContext.Provider>
