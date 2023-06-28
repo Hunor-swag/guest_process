@@ -1,7 +1,7 @@
 "use client";
 
 import { Guest, HotelSystemObject } from "@/types/typings";
-import { createContext, useContext, useEffect, useState } from "react";
+import { cache, createContext, useContext, useEffect, useState } from "react";
 
 interface GlobalContextType {
   hotel_name: string;
@@ -33,7 +33,10 @@ export const GlobalContextProvider = ({
           `https://${hotelSubdomain}.putboot.dev/api/systems`
         );
         const response = await fetch(
-          `https://${hotelSubdomain}.putboot.dev/api/systems`
+          `https://${hotelSubdomain}.putboot.dev/api/systems`,
+          {
+            cache: "no-store",
+          }
         );
 
         if (!response.ok) {
