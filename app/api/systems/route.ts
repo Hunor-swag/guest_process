@@ -4,14 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const queryString = `
-      SELECT * FROM hotel_systems;
+      SELECT * FROM hotel_systems ORDER BY name ASC;
     `;
 
     const results = await query("control_panel", queryString, []);
 
     return new NextResponse(JSON.stringify(results), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "s-maxage=60, stale-while-revalidate",
+      },
     });
   } catch (error: any) {
     let error_response = {
