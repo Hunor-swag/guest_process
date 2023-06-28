@@ -19,7 +19,6 @@ function HotelSystemProvider({ children }: Props) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log(context, context?.hotel_object);
     if (context && context.hotel_object !== undefined) {
       setIsLoading(false);
     }

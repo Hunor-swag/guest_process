@@ -98,8 +98,6 @@ export const GlobalContextProvider = ({
       });
   }, [hotelObject]);
 
-  console.log(guests);
-
   return (
     <GlobalContext.Provider
       value={{
