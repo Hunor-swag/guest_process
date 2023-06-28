@@ -28,16 +28,12 @@ export const GlobalContextProvider = ({
   useEffect(() => {
     const fetchHotelData = async () => {
       try {
-        if (!hotelObject) {
-          console.log("No hotel object! GlobalContextProvider.tsx 32");
-          return;
-        }
         console.log(
           "API url: ",
-          `https://${hotelObject.subdomain}.putboot.dev/api/systems`
+          `https://${hotelSubdomain}.putboot.dev/api/systems`
         );
         const response = await fetch(
-          `https://${hotelObject.subdomain}.putboot.dev/api/systems`
+          `https://${hotelSubdomain}.putboot.dev/api/systems`
         );
 
         if (!response.ok) {
