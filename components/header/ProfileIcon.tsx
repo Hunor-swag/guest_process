@@ -8,7 +8,7 @@ import LanguageSelectorMenu from "../language/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
 import { signOut } from "next-auth/react";
 import { useGlobalContext } from "../context/GlobalContextProvider";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 function ProfileIcon() {
   const dict = useDictionary();
@@ -57,7 +57,9 @@ function ProfileIcon() {
           <button
             className="hover:text-[#009ef7]"
             onClick={() => {
-              signOut();
+              signOut({
+                redirect: false,
+              });
               router.push(
                 `https://${context?.hotel_object?.subdomain}.putboot.dev`
               );
