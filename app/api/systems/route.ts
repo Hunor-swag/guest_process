@@ -1,7 +1,8 @@
 import { query } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  console.log(`GET ${req.headers.get("host")?.split(".")[0]}/api/systems`);
   try {
     const queryString = `
       SELECT * FROM hotel_systems ORDER BY name ASC;
