@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "s-maxage=60, stale-while-revalidate",
       },
     });
   } catch (error: any) {

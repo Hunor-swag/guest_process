@@ -34,9 +34,7 @@ export const GlobalContextProvider = ({
         );
         const response = await fetch(
           `https://${hotelSubdomain}.putboot.dev/api/systems`,
-          {
-            cache: "no-store",
-          }
+          { cache: "no-store" }
         );
 
         if (!response.ok) {

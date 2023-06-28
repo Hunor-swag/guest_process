@@ -2,7 +2,6 @@
 
 import SystemNotFound from "@/components/SystemNotFound";
 import { useGlobalContext } from "@/components/context/GlobalContextProvider";
-import { containerClasses } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
