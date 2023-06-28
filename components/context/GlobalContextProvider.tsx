@@ -1,12 +1,12 @@
 "use client";
 
-import { HotelSystemObject } from "@/types/typings";
-import { TrophyIcon } from "@heroicons/react/24/outline";
+import { Guest, HotelSystemObject } from "@/types/typings";
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface GlobalContextType {
   hotel_name: string;
   hotel_object: HotelSystemObject | null | undefined;
+  guests?: Guest[] | null;
 }
 
 const GlobalContext = createContext<GlobalContextType | null>(null);
@@ -22,6 +22,8 @@ export const GlobalContextProvider = ({
   const [hotelObject, setHotelObject] = useState<
     HotelSystemObject | undefined | null
   >(undefined);
+
+  const [guests, setGuests] = useState<Guest[] | null>(null);
 
   useEffect(() => {
     const fetchHotelData = async () => {
@@ -57,9 +59,49 @@ export const GlobalContextProvider = ({
       });
   }, [hotelSubdomain]);
 
+  useEffect(() => {
+    if (!hotelObject || !hotelObject.subdomain) return;
+    const fetchGuestsData = async () => {
+      try {
+        const response = await fetch(
+          `https://${hotelObject.subdomain}.putboot.dev/api/guests`,
+          {
+            next: {
+              tags: ["guests"],
+              revalidate: 60,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Could not fetch guests data!");
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.log("Error:", error);
+        throw error;
+      }
+    };
+
+    fetchGuestsData()
+      .then((data) => {
+        setGuests(() => data.data as Guest[]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [hotelObject]);
+
+  console.log(guests);
+
   return (
     <GlobalContext.Provider
-      value={{ hotel_name: hotelSubdomain, hotel_object: hotelObject }}
+      value={{
+        hotel_name: hotelSubdomain,
+        hotel_object: hotelObject,
+        guests: guests,
+      }}
     >
       {children}
     </GlobalContext.Provider>
