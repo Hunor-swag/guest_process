@@ -28,8 +28,9 @@ export const GlobalContextProvider = ({
   useEffect(() => {
     const fetchHotelData = async () => {
       try {
+        if (!hotelObject) return;
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/systems`
+          `https://${hotelObject.subdomain}.putboot.dev/api/systems`
         );
 
         if (!response.ok) {
