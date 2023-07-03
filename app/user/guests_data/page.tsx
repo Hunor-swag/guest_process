@@ -18,7 +18,11 @@ export default function GuestsData() {
   const [isLoading, setIsLoading] = useState(true);
 
   async function refreshData() {
+    console.log("Refreshing data...");
     try {
+      console.log(
+        `https://${context?.hotel_object?.subdomain}.putboot.dev/api/guests`
+      );
       const res = await fetch(
         `https://${context?.hotel_object?.subdomain}.putboot.dev/api/guests`,
         {
@@ -26,6 +30,7 @@ export default function GuestsData() {
         }
       );
       const json = await res.json();
+      console.log(json.data);
       setGuests(json.data);
       if (json.data !== null) setIsLoading(false);
     } catch (error) {
