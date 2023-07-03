@@ -33,7 +33,7 @@ export default function TableRow({ guest, refreshData }: Props) {
         return;
       }
       await fetch(
-        `https://${context.hotel_object.subdomain}/api/guests/${guest.id}`,
+        `https://${context.hotel_object.subdomain}.putboot.dev/api/guests/${guest.id}`,
         {
           method: "DELETE",
         }
