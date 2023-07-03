@@ -51,8 +51,8 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
         console.error("No context or hotel object found");
         return;
       }
-      console.log(`${context?.hotel_object?.subdomain}/api/guests`);
-      await fetch(`${context?.hotel_object?.subdomain}/api/guests`, {
+      console.log(`url that i think is bad: ${context.hotel_object.subdomain}/api/guests`);
+      await fetch(`${context.hotel_object.subdomain}/api/guests`, {
         method: "POST",
         body: JSON.stringify(values),
         headers: {
