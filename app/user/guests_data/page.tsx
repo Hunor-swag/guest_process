@@ -56,15 +56,14 @@ export default function GuestsData() {
       {guests.length === 0 ? (
         <h1 className="text-xl font-semibold text-center">No guests found!</h1>
       ) : (
-        <>
-          <DataTable data={guests} refreshData={refreshData} />
-          <AddGuestModal
-            open={showAddGuestModal}
-            setOpen={setShowAddGuestModal}
-            refreshData={refreshData}
-          />
-        </>
+        <DataTable data={guests} refreshData={refreshData} />
       )}
+
+      <AddGuestModal
+        open={showAddGuestModal}
+        setOpen={setShowAddGuestModal}
+        refreshData={refreshData}
+      />
     </Panel>
   );
 }
