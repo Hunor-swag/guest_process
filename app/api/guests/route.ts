@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     if (!subdomain) {
       return new NextResponse("No host", {
-        status: 500,
+        status: 404,
         headers: {
           "Content-Type": "application/json",
         },
