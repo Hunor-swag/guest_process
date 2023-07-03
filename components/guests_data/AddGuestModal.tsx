@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import PanelForm from "../PanelForm";
 import InputWithLabel from "../InputWithLabel";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "../context/GlobalContextProvider";
 
 type Props = {
   open: boolean;
@@ -13,6 +14,8 @@ type Props = {
 
 function AddGuestModal({ open, setOpen, refreshData }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
+
+  const context = useGlobalContext();
 
   const router = useRouter();
 
@@ -40,7 +43,15 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests`, {
+      if (
+        !context ||
+        !context.hotel_object ||
+        !context.hotel_object.subdomain
+      ) {
+        console.error("No context or hotel object found");
+        return;
+      }
+      await fetch(`${context?.hotel_object?.subdomain}/api/guests`, {
         method: "POST",
         body: JSON.stringify(values),
         headers: {
