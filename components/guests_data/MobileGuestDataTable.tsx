@@ -2,6 +2,7 @@ import { Guest } from "@/types/typings";
 import TableRowMobile from "./TableRowMobile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "../context/GlobalContextProvider";
 
 type Props = {
   guest: Guest;
@@ -10,6 +11,8 @@ type Props = {
 
 function MobileGuestDataTable({ guest, refreshData }: Props) {
   const router = useRouter();
+
+  const context = useGlobalContext();
 
   const confirmDeleteGuest = () => {
     const confirmDelete = window.confirm(
@@ -21,9 +24,20 @@ function MobileGuestDataTable({ guest, refreshData }: Props) {
 
   const deleteGuest = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests/${guest.id}`, {
-        method: "DELETE",
-      });
+      if (
+        !context ||
+        !context.hotel_object ||
+        !context.hotel_object.subdomain
+      ) {
+        console.error("No context or hotel object found");
+        return;
+      }
+      await fetch(
+        `https://${context.hotel_object.subdomain}.putboot.dev/api/guests/${guest.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       router.refresh();
       refreshData();
     } catch (err) {
