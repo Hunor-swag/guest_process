@@ -51,14 +51,19 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
         console.error("No context or hotel object found");
         return;
       }
-      console.log(`url that i think is bad: ${context.hotel_object.subdomain}/api/guests`);
-      await fetch(`${context.hotel_object.subdomain}/api/guests`, {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      console.log(
+        `url that i think is good now: https://${context.hotel_object.subdomain}.putboot.dev/api/guests`
+      );
+      await fetch(
+        `https://${context.hotel_object.subdomain}.putboot.dev/api/guests`,
+        {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       resetForm();
       router.refresh();
       refreshData();
