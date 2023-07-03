@@ -4,6 +4,7 @@ import { Guest } from "@/types/typings";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "../context/GlobalContextProvider";
 
 type Props = {
   guest: Guest;
@@ -12,6 +13,7 @@ type Props = {
 
 export default function TableRow({ guest, refreshData }: Props) {
   const router = useRouter();
+  const context = useGlobalContext();
   const confirmDeleteGuest = () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this guest?"
@@ -22,9 +24,20 @@ export default function TableRow({ guest, refreshData }: Props) {
 
   const deleteGuest = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/guests/${guest.id}`, {
-        method: "DELETE",
-      });
+      if (
+        !context ||
+        !context.hotel_object ||
+        !context.hotel_object.subdomain
+      ) {
+        console.error("No context or hotel object found");
+        return;
+      }
+      await fetch(
+        `https://${context.hotel_object.subdomain}/api/guests/${guest.id}`,
+        {
+          method: "DELETE",
+        }
+      );
       router.refresh();
       refreshData();
     } catch (err) {

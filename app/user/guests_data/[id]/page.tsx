@@ -2,6 +2,7 @@
 
 import InputWithLabel from "@/components/InputWithLabel";
 import PanelForm from "@/components/PanelForm";
+import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 import { Guest } from "@/types/typings";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useEffect, useState } from "react";
@@ -16,9 +17,15 @@ function IdPage({ params }: { params: { id: string } }) {
 
   const router = useRouter();
 
+  const context = useGlobalContext();
+
   useEffect(() => {
-    const result = fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/guests/${params.id}`
+    if (!context || !context.hotel_object || !context.hotel_object.subdomain) {
+      console.error("No context or hotel object found");
+      return;
+    }
+    fetch(
+      `https://${context.hotel_object.subdomain}.putboot.dev/api/guests/${params.id}`
     )
       .then((res) => res.json())
       .then((data) => setGuest(data[0]));
@@ -35,8 +42,16 @@ function IdPage({ params }: { params: { id: string } }) {
     e.preventDefault();
 
     try {
+      if (
+        !context ||
+        !context.hotel_object ||
+        !context.hotel_object.subdomain
+      ) {
+        console.error("No context or hotel object found");
+        return;
+      }
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/guests/${params.id}`,
+        `https://${context.hotel_object.subdomain}.putboot.dev/api/guests/${params.id}`,
         {
           method: "PUT",
           headers: {
