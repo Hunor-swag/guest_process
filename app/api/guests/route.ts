@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
 
     if (!subdomain) {
       return new NextResponse("No host", {
-        status: 500,
+        status: 404,
         headers: {
           "Content-Type": "application/json",
         },
