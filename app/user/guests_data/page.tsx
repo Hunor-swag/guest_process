@@ -53,12 +53,18 @@ export default function GuestsData() {
       buttonText="Add Guest"
       buttonClickHandler={() => setShowAddGuestModal(true)}
     >
-      <DataTable data={guests} refreshData={refreshData} />
-      <AddGuestModal
-        open={showAddGuestModal}
-        setOpen={setShowAddGuestModal}
-        refreshData={refreshData}
-      />
+      {guests.length === 0 ? (
+        <h1 className="text-xl font-semibold text-center">No guests found!</h1>
+      ) : (
+        <>
+          <DataTable data={guests} refreshData={refreshData} />
+          <AddGuestModal
+            open={showAddGuestModal}
+            setOpen={setShowAddGuestModal}
+            refreshData={refreshData}
+          />
+        </>
+      )}
     </Panel>
   );
 }
