@@ -3,7 +3,12 @@ import TableRowMobile from "./TableRowMobile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-function MobileGuestDataTable({ guest }: { guest: Guest }) {
+type Props = {
+  guest: Guest;
+  refreshData: () => void;
+};
+
+function MobileGuestDataTable({ guest, refreshData }: Props) {
   const router = useRouter();
 
   const confirmDeleteGuest = () => {
@@ -20,6 +25,7 @@ function MobileGuestDataTable({ guest }: { guest: Guest }) {
         method: "DELETE",
       });
       router.refresh();
+      refreshData();
     } catch (err) {
       console.log(err);
     }

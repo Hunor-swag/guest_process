@@ -26,8 +26,8 @@ export default function GuestsData() {
         }
       );
       const json = await res.json();
-      console.log(json);
       setGuests(json.data);
+      if (json.data !== null) setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +35,7 @@ export default function GuestsData() {
 
   useEffect(() => {
     refreshData();
-    if (guests !== null) setIsLoading(false);
+    console.log(guests);
   }, []);
 
   if (isLoading) {
@@ -52,8 +52,12 @@ export default function GuestsData() {
       buttonText="Add Guest"
       buttonClickHandler={() => setShowAddGuestModal(true)}
     >
-      <DataTable data={guests} />
-      <AddGuestModal open={showAddGuestModal} setOpen={setShowAddGuestModal} />
+      <DataTable data={guests} refreshData={refreshData} />
+      <AddGuestModal
+        open={showAddGuestModal}
+        setOpen={setShowAddGuestModal}
+        refreshData={refreshData}
+      />
     </Panel>
   );
 }

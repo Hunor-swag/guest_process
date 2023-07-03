@@ -9,9 +9,10 @@ import MobileGuestDataTable from "./MobileGuestDataTable";
 
 type Props = {
   data: Guest[];
+  refreshData: () => void;
 };
 
-export default function DataTable({ data }: Props) {
+export default function DataTable({ data, refreshData }: Props) {
   return (
     <div className="w-full">
       <table className="w-full bg-gray-200 rounded-xl table-auto hidden md:table">
@@ -26,13 +27,21 @@ export default function DataTable({ data }: Props) {
         </thead>
         <tbody>
           {data.map((guest: Guest, index: number) => {
-            return <TableRow guest={guest} key={index} />;
+            return (
+              <TableRow guest={guest} key={index} refreshData={refreshData} />
+            );
           })}
         </tbody>
       </table>
       <div className="md:hidden block">
         {data.map((guest: Guest, index: number) => {
-          return <MobileGuestDataTable guest={guest} key={index} />;
+          return (
+            <MobileGuestDataTable
+              guest={guest}
+              key={index}
+              refreshData={refreshData}
+            />
+          );
         })}
       </div>
     </div>

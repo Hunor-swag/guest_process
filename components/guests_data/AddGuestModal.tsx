@@ -8,9 +8,10 @@ import { useRouter } from "next/navigation";
 type Props = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  refreshData: () => void;
 };
 
-function AddGuestModal({ open, setOpen }: Props) {
+function AddGuestModal({ open, setOpen, refreshData }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const router = useRouter();
@@ -48,6 +49,7 @@ function AddGuestModal({ open, setOpen }: Props) {
       });
       resetForm();
       router.refresh();
+      refreshData();
     } catch (error) {
       console.error("An error occurred:", error);
     }

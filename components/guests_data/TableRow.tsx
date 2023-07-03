@@ -7,9 +7,10 @@ import { useRouter } from "next/navigation";
 
 type Props = {
   guest: Guest;
+  refreshData: () => void;
 };
 
-export default function TableRow({ guest }: Props) {
+export default function TableRow({ guest, refreshData }: Props) {
   const router = useRouter();
   const confirmDeleteGuest = () => {
     const confirmDelete = window.confirm(
@@ -25,6 +26,7 @@ export default function TableRow({ guest }: Props) {
         method: "DELETE",
       });
       router.refresh();
+      refreshData();
     } catch (err) {
       console.log(err);
     }
