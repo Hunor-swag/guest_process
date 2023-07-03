@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const db_name = subdomain?.replaceAll("-", "_");
+    const db_name = subdomain?.replace(/-/g, "_");
 
     // console.log(subdomain);
 
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const db_name = subdomain?.replaceAll("-", "_");
+    const db_name = subdomain?.replace(/-/g, "_");
 
     const queryString =
       "INSERT INTO guests (name, email, address, id_number) VALUES (?, ?, ?, ?)";

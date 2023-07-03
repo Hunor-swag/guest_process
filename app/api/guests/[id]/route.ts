@@ -16,7 +16,7 @@ export async function GET(
     });
   }
 
-  const db_name = subdomain?.replaceAll("-", "_");
+  const db_name = subdomain?.replace(/-/g, "_");
 
   const queryString = `SELECT * FROM guests WHERE id=?`;
 
@@ -44,7 +44,7 @@ export async function PUT(
       });
     }
 
-    const db_name = subdomain?.replaceAll("-", "_");
+    const db_name = subdomain?.replace(/-/g, "_");
 
     const { name, email, address, id_number } = await req.json();
 
@@ -82,7 +82,7 @@ export async function DELETE(
       });
     }
 
-    const db_name = subdomain?.replaceAll("-", "_");
+    const db_name = subdomain?.replace(/-/g, "_");
 
     const queryString = `DELETE FROM guests WHERE id=${params.id}`;
 
