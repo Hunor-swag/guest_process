@@ -28,10 +28,10 @@ export const GlobalContextProvider = ({
   useEffect(() => {
     const fetchHotelData = async () => {
       try {
-        console.log(
-          "API url: ",
-          `https://${hotelSubdomain}.putboot.dev/api/systems`
-        );
+        // console.log(
+        //   "API url: ",
+        //   `https://${hotelSubdomain}.putboot.dev/api/systems`
+        // );
         const response = await fetch(
           `https://${hotelSubdomain}.putboot.dev/api/systems`,
           { cache: "no-store" }
@@ -50,7 +50,7 @@ export const GlobalContextProvider = ({
 
     fetchHotelData()
       .then((data) => {
-        console.log("Data: ", data);
+        // console.log("Data: ", data);
         const foundHotelObject = data.find(
           (hotel: HotelSystemObject) => hotel.subdomain === hotelSubdomain
         );
