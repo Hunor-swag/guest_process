@@ -46,7 +46,7 @@ export default function GuestsData() {
   }
   return (
     <Panel
-      bgcolor="white"
+      bgcolor="bg-white"
       height="full"
       title="Guests"
       width="full"

@@ -23,7 +23,7 @@ function Panel({
 }: Props) {
   return (
     <div
-      className={`w-${width} h-${height} bg-${bgcolor} py-4 md:px-8 px-2 rounded-xl`}
+      className={`w-${width} h-${height} ${bgcolor} py-4 md:px-8 px-2 rounded-xl`}
     >
       <div className="flex justify-between items-center pb-4 border-b border-b-gray-400 mb-8 p-2">
         <h1 className="text-xl font-semibold">{title}</h1>
