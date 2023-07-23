@@ -1,16 +1,11 @@
 import { getServerSession } from "next-auth";
 import "./globals.css";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import { SessionProvider } from "next-auth/react";
 import NextAuthProvider from "./NextAuthProvider";
-import { GlobalContextProvider } from "@/components/context/GlobalContextProvider";
+import GlobalContextProvider from "@/components/context/GlobalContextProvider";
 import HotelSystemProvider from "./HotelSystemProvider";
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
 
   // console.log(session);
@@ -18,6 +13,7 @@ export default async function RootLayout({
   return (
     <html>
       <body>
+        {/* <h1>hello</h1> */}
         <GlobalContextProvider>
           <NextAuthProvider session={session}>
             <HotelSystemProvider>{children}</HotelSystemProvider>
@@ -27,3 +23,5 @@ export default async function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;

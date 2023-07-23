@@ -2,20 +2,9 @@
 
 import { Guest, HotelSystemObject } from "@/types/typings";
 import { cache, createContext, useContext, useEffect, useState } from "react";
+import { GlobalContext } from "./createContext";
 
-interface GlobalContextType {
-  hotel_name: string;
-  hotel_object: HotelSystemObject | null | undefined;
-  guests?: Guest[] | null;
-}
-
-const GlobalContext = createContext<GlobalContextType | null>(null);
-
-export const GlobalContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
   const hotelSubdomain =
     typeof window !== "undefined" ? window.location.host.split(".")[0] : "";
 
@@ -111,5 +100,7 @@ export const GlobalContextProvider = ({
     </GlobalContext.Provider>
   );
 };
+
+export default GlobalContextProvider;
 
 export const useGlobalContext = () => useContext(GlobalContext);
