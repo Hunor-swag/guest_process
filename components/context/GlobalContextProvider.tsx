@@ -2,20 +2,9 @@
 
 import { Guest, HotelSystemObject } from "@/types/typings";
 import { cache, createContext, useContext, useEffect, useState } from "react";
+import { GlobalContext } from "./createContext";
 
-interface GlobalContextType {
-  hotel_name: string;
-  hotel_object: HotelSystemObject | null | undefined;
-  guests?: Guest[] | null;
-}
-
-const GlobalContext = createContext<GlobalContextType | null>(null);
-
-export const GlobalContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const GlobalContextProvider = ({ children }: { children: React.ReactNode }) => {
   const hotelSubdomain =
     typeof window !== "undefined" ? window.location.host.split(".")[0] : "";
 
@@ -28,10 +17,10 @@ export const GlobalContextProvider = ({
   useEffect(() => {
     const fetchHotelData = async () => {
       try {
-        console.log(
-          "API url: ",
-          `https://${hotelSubdomain}.putboot.dev/api/systems`
-        );
+        // console.log(
+        //   "API url: ",
+        //   `https://${hotelSubdomain}.putboot.dev/api/systems`
+        // );
         const response = await fetch(
           `https://${hotelSubdomain}.putboot.dev/api/systems`,
           { cache: "no-store" }
@@ -50,7 +39,7 @@ export const GlobalContextProvider = ({
 
     fetchHotelData()
       .then((data) => {
-        console.log("Data: ", data);
+        // console.log("Data: ", data);
         const foundHotelObject = data.find(
           (hotel: HotelSystemObject) => hotel.subdomain === hotelSubdomain
         );
@@ -111,5 +100,7 @@ export const GlobalContextProvider = ({
     </GlobalContext.Provider>
   );
 };
+
+export default GlobalContextProvider;
 
 export const useGlobalContext = () => useContext(GlobalContext);

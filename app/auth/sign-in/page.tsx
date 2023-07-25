@@ -15,14 +15,10 @@ import { useRouter } from "next/navigation";
 import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 
 export default function SignIn() {
   const dict = useDictionary().auth;
   const router = useRouter();
-  const { data: session } = useSession();
-
-  const subdomain = useGlobalContext();
 
   const [values, setValues] = useState({
     email: "",

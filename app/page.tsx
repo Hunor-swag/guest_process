@@ -6,15 +6,21 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+function Home() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (session) {
-      router.push("/user");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push("/user");
+  //   }
+  // }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <h1>hello</h1>
+    </div>
+  );
 }
+
+export default Home;
