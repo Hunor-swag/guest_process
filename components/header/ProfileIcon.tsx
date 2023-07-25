@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import LanguageSelectorMenu from "../language/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
 import { signOut } from "next-auth/react";
-import { useGlobalContext } from "../context/GlobalContextProvider";
+import { useGlobalContext } from "@/components/context/GlobalContextExports";
 import { redirect, useRouter } from "next/navigation";
 
 function ProfileIcon() {

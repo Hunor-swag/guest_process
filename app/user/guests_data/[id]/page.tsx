@@ -2,7 +2,7 @@
 
 import InputWithLabel from "@/components/InputWithLabel";
 import PanelForm from "@/components/PanelForm";
-import { useGlobalContext } from "@/components/context/GlobalContextProvider";
+import { useGlobalContext } from "@/components/context/GlobalContextExports";
 import { Guest } from "@/types/typings";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useEffect, useState } from "react";

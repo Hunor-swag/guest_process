@@ -1,7 +1,7 @@
 "use client";
 
 import Panel from "@/components/Panel";
-import { useGlobalContext } from "@/components/context/GlobalContextProvider";
+import { useGlobalContext } from "@/components/context/GlobalContextExports";
 import AddGuestModal from "@/components/guests_data/AddGuestModal";
 import DataTable from "@/components/guests_data/DataTable";
 import { Guest } from "@/types/typings";

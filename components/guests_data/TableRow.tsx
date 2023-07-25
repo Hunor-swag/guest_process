@@ -4,7 +4,7 @@ import { Guest } from "@/types/typings";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "../context/GlobalContextProvider";
+import { useGlobalContext } from "@/components/context/GlobalContextExports";
 
 type Props = {
   guest: Guest;

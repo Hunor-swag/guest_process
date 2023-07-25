@@ -1,21 +1,22 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
-import PanelForm from "../PanelForm";
-import InputWithLabel from "../InputWithLabel";
+import InputWithLabel from "@/components/InputWithLabel";
+import PanelForm from "@/components/PanelForm";
+import { useGuests, useHotelSystem } from "@/store/store";
+import { Guest } from "@/types/typings";
+import { revalidateTag } from "next/cache";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "@/components/context/GlobalContextExports";
+import { FormEvent, useEffect, useRef, useState, useContext } from "react";
 
 type Props = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  refreshData: () => void;
 };
 
-function AddGuestModal({ open, setOpen, refreshData }: Props) {
+export default function AddGuestModal({ open, setOpen }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
-  const context = useGlobalContext();
+  const subdomain = useHotelSystem.getState().subdomain;
 
   const router = useRouter();
 
@@ -40,33 +41,35 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
     setValues({ ...values, [name]: e.target.value });
   };
 
+  // const refreshData = () => {
+  //   fetch(`https://${subdomain}.putboot.dev/api/guests`).then(() => {
+  //     revalidateTag("guests");
+  //   });
+  // };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      if (
-        !context ||
-        !context.hotel_object ||
-        !context.hotel_object.subdomain
-      ) {
-        console.error("No context or hotel object found");
+      if (!subdomain) {
+        console.error("Cannot get subdomain");
         return;
       }
-      console.log(
-        `url that i think is good now: https://${context.hotel_object.subdomain}.putboot.dev/api/guests`
-      );
-      await fetch(
-        `https://${context.hotel_object.subdomain}.putboot.dev/api/guests`,
-        {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await fetch(`https://${subdomain}.putboot.dev/api/guests`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      useGuests.getState().addGuest({
+        name: values.name,
+        email: values.email,
+        address: values.address,
+        id_number: values.id_number,
+      } as Guest);
+
       resetForm();
-      router.refresh();
-      refreshData();
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -131,5 +134,3 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
     </>
   );
 }
-
-export default AddGuestModal;

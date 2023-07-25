@@ -2,7 +2,7 @@ import { Guest } from "@/types/typings";
 import TableRowMobile from "./TableRowMobile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "../context/GlobalContextProvider";
+import { useGlobalContext } from "@/components/context/GlobalContextExports";
 
 type Props = {
   guest: Guest;
