@@ -5,6 +5,7 @@ import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loading from "./loading";
 
 type Props = {
   children: React.ReactNode;
@@ -33,11 +34,11 @@ function HotelSystemProvider({ children }: Props) {
     }
   }, [context, router, session]);
 
-  if (isLoading) {
-    return <div>Loading...</div>; // Show a loading state while the context is being fetched
-  }
-
-  return (
+  return isLoading ? (
+    <div className="h-screen w-screen flex justify-center items-center">
+      <Loading />
+    </div>
+  ) : (
     <>
       {context &&
       context.hotel_object !== undefined &&
