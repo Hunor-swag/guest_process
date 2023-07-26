@@ -10,6 +10,7 @@ export type HotelSystemState = {
 export type GuestState = {
   guests: Guest[];
   addGuest: (newGuest: Guest) => void;
+  setGuests: (guests: Guest[]) => void;
 };
 
 export const useHotelSystem = create<HotelSystemState>()(
@@ -31,6 +32,7 @@ export const useGuests = create<GuestState>()(
       guests: [],
       addGuest: (newGuest: Guest) =>
         set((state) => ({ guests: [...state.guests, newGuest] })),
+      setGuests: (guests: Guest[]) => set(() => ({ guests })),
     }),
     {
       name: "hotelSystem",

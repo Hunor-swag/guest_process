@@ -17,6 +17,7 @@ export default function DataTable() {
   const [isLoading, setIsLoading] = useState(true);
 
   const guests = useGuests((state) => state.guests);
+  const setGuests = useGuests((state) => state.setGuests);
 
   const [displayedGuests, setDisplayedGuests] = useState<Guest[]>([]);
 
@@ -30,15 +31,20 @@ export default function DataTable() {
     )
       .then((res) => res.json())
       .then((json) => {
-        console.log(json.data);
-        useGuests.setState({ guests: json.data });
+        setIsLoading(false);
+        setGuests(json.data);
+      })
+      .catch((error) => {
+        console.error("Error refreshing guests:", error);
         setIsLoading(false);
       });
   };
 
   useEffect(() => {
-    console.log("guests: ", guests);
-    console.log("displayed guests: ", displayedGuests);
+    refreshGuests();
+  }, []);
+
+  useEffect(() => {
     setDisplayedGuests(guests);
     setIsLoading(false);
   }, [guests, displayedGuests]);
