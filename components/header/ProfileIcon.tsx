@@ -56,11 +56,11 @@ function ProfileIcon() {
           </Link>
           <button
             className="hover:text-[#009ef7]"
-            onClick={() => {
-              signOut({
+            onClick={async () => {
+              await signOut({
                 redirect: false,
               });
-              router.push(`https://${subdomain}.putboot.dev`);
+              router.push(`https://${subdomain}.putboot.dev/auth/sign-in`);
             }}
           >
             <li>{dict.userHeader.signOut}</li>

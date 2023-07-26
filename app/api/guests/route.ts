@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     // console.log(db_name);
 
-    const queryString = "SELECT * FROM guests";
+    const queryString = "SELECT * FROM guests WHERE hidden='0'";
     const results = (await query(db_name, queryString, [])) as [];
 
     let json_response = {

@@ -35,6 +35,7 @@ export default function SignIn() {
   };
 
   const validate = () => {
+    let validated = true;
     if (!isValidEmail(values.email)) {
       toast("Invalid Email format!", {
         position: "top-right",
@@ -47,7 +48,7 @@ export default function SignIn() {
         progress: undefined,
         theme: "light",
       });
-      return false;
+      validated = false;
     }
     if (!isPasswordEntered(values.password)) {
       toast("Please enter your password!", {
@@ -61,10 +62,10 @@ export default function SignIn() {
         progress: undefined,
         theme: "light",
       });
-      return false;
+      validated = false;
     }
-    // return errorArray.every((error) => error === "");
-    return true;
+
+    return validated;
   };
 
   const authenticate = (user: SignInResponse | undefined) => {
@@ -80,6 +81,7 @@ export default function SignIn() {
         progress: undefined,
         theme: "light",
       });
+
       return;
     }
     if (user?.error) {
@@ -94,15 +96,30 @@ export default function SignIn() {
         progress: undefined,
         theme: "light",
       });
+
       return false;
     }
+
     return true;
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    const loadingToast = toast("Logging in...", {
+      position: "top-right",
+      autoClose: false,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: false,
+      type: "info",
+    });
+
+    if (!validate()) {
+      toast.dismiss(loadingToast);
+      return;
+    }
 
     const user = await signIn("credentials", {
       email: values.email,
@@ -113,9 +130,10 @@ export default function SignIn() {
     if (!user) {
     }
     if (!authenticate(user)) {
+      toast.dismiss(loadingToast);
       return;
     }
-
+    toast.dismiss(loadingToast);
     router.push("/user");
   };
 

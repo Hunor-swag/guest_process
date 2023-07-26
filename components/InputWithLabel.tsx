@@ -10,7 +10,7 @@ type Props = {
 
 export default function InputWithLabel({
   name,
-  value,
+  value = "",
   onChange,
   autoFocus = false,
   placeholder,

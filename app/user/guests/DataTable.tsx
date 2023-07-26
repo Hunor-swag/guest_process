@@ -5,22 +5,27 @@ import TableCell from "./TableCell";
 import TableHeader from "./TableHeader";
 import { useState, useEffect } from "react";
 import AddGuestModal from "./AddGuestModal";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useGuests, useHotelSystem } from "@/store/store";
 import { Spinner } from "flowbite-react";
 import { PlusIcon } from "@heroicons/react/24/solid";
+import EditGuestModal from "./EditGuestModal";
 
 export default function DataTable() {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [selectedGuestData, setSelectedGuestData] = useState<Guest>(
+    {} as Guest
+  );
 
   const [showAddGuestModal, setShowAddGuestModal] = useState(false);
+  const [showEditGuestModal, setShowEditGuestModal] = useState(false);
 
   const [isLoading, setIsLoading] = useState(true);
 
   const guests = useGuests((state) => state.guests);
   const setGuests = useGuests((state) => state.setGuests);
 
-  const [displayedGuests, setDisplayedGuests] = useState<Guest[]>([]);
+  const [filteredGuests, setFilteredGuests] = useState<Guest[] | null>(null);
 
   const refreshGuests = () => {
     setIsLoading(true);
@@ -46,9 +51,9 @@ export default function DataTable() {
   }, []);
 
   useEffect(() => {
-    setDisplayedGuests(guests);
+    setFilteredGuests(guests);
     setIsLoading(false);
-  }, [guests, displayedGuests]);
+  }, [guests]);
 
   const handleRowSelect = (guestId: number) => {
     if (selectedRows.includes(guestId)) {
@@ -71,7 +76,7 @@ export default function DataTable() {
     const filteredGuests = guests?.filter((guest) =>
       guest.name.toLowerCase().includes(searchValue)
     );
-    setDisplayedGuests(filteredGuests);
+    setFilteredGuests(filteredGuests);
   };
 
   function noneSelected() {
@@ -79,12 +84,11 @@ export default function DataTable() {
   }
 
   function allSelected() {
-    if (!displayedGuests) return false;
-    return selectedRows.length === displayedGuests?.length;
+    if (!guests) return false;
+    return selectedRows.length === guests?.length;
   }
 
   // console.log("guests: ", guests);
-  // console.log("displayed guests: ", displayedGuests);
 
   async function deleteGuests(indexes: number[]) {
     const subdomain = useHotelSystem.getState().subdomain;
@@ -96,6 +100,13 @@ export default function DataTable() {
     refreshGuests();
     setSelectedRows([]);
   }
+
+  const handleEditGuest = () => {
+    setSelectedGuestData(
+      guests?.find((guest) => guest.id === selectedRows[0])!
+    );
+    setShowEditGuestModal(true);
+  };
 
   return (
     <>
@@ -112,9 +123,20 @@ export default function DataTable() {
           {selectedRows.length === 0 && (
             <button
               onClick={() => setShowAddGuestModal(true)}
-              className="bg-slate-100 p-2 rounded-xl hover:bg-slate-200 text-slate-500 transition-all duration-100"
+              className="bg-slate-100 p-2 rounded-xl hover:bg-slate-200 text-slate-500 transition-all duration-100 pr-4"
             >
-              <PlusIcon className="w-6 h-6" />
+              <div className="flex justify-center items-center space-x-2">
+                <PlusIcon className="w-6 h-6" />
+                <span>Add</span>
+              </div>
+            </button>
+          )}
+          {selectedRows.length === 1 && (
+            <button
+              onClick={handleEditGuest}
+              className="bg-slate-200 p-2 rounded-xl hover:bg-slate-300 text-slate-600 transition-all duration-100 mr-2"
+            >
+              <PencilIcon className="w-6 h-6 bg-" />
             </button>
           )}
           {selectedRows.length > 0 && (
@@ -131,6 +153,12 @@ export default function DataTable() {
           setOpen={setShowAddGuestModal}
           refreshData={refreshGuests}
         />
+        <EditGuestModal
+          open={showEditGuestModal}
+          setOpen={setShowEditGuestModal}
+          refreshData={refreshGuests}
+          guestData={selectedGuestData}
+        />
       </div>
       <div className="w-full p-4 pr-10">
         <div className="overflow-x-auto w-full rounded-lg overflow-y-hidden">
@@ -146,8 +174,7 @@ export default function DataTable() {
                   <input
                     type="checkbox"
                     checked={
-                      selectedRows.length === displayedGuests?.length &&
-                      !noneSelected()
+                      selectedRows.length === guests?.length && !noneSelected()
                     }
                     onChange={handleSelectAllRows}
                     className="checkbox"
@@ -157,6 +184,7 @@ export default function DataTable() {
                 <TableHeader>Email</TableHeader>
                 <TableHeader>Address</TableHeader>
                 <TableHeader>ID Number</TableHeader>
+                <TableHeader>{""}</TableHeader>
               </tr>
             </thead>
             <tbody>
@@ -167,7 +195,7 @@ export default function DataTable() {
                   </td>
                 </tr>
               ) : (
-                displayedGuests?.map((guest) => (
+                filteredGuests?.map((guest) => (
                   <tr
                     key={guest.id}
                     className={`
@@ -187,10 +215,26 @@ export default function DataTable() {
                     <TableCell>{guest.email}</TableCell>
                     <TableCell>{guest.address}</TableCell>
                     <TableCell>{guest.id_number}</TableCell>
+                    <TableCell>
+                      <div className="flex justify-end items-center space-x-2 w-full">
+                        <button
+                          onClick={handleEditGuest}
+                          className="bg-slate-200 p-2 rounded-xl hover:bg-slate-300 text-slate-600 transition-all duration-100 mr-2"
+                        >
+                          <PencilIcon className="w-6 h-6 bg-" />
+                        </button>
+                        <button
+                          onClick={() => deleteGuests(selectedRows)}
+                          className="p-2 rounded-xl bg-red-400 text-gray-600 hover:bg-red-500"
+                        >
+                          <TrashIcon className="w-6 h-6" />
+                        </button>
+                      </div>
+                    </TableCell>
                   </tr>
                 ))
               )}
-              {displayedGuests?.length === 0 && !isLoading && (
+              {filteredGuests?.length === 0 && !isLoading && (
                 <tr>
                   <td colSpan={5} className="text-center text-sm">
                     No guests found
