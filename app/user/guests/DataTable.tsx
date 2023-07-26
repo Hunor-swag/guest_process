@@ -7,19 +7,41 @@ import { useState, useEffect } from "react";
 import AddGuestModal from "./AddGuestModal";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useGuests, useHotelSystem } from "@/store/store";
+import { Spinner } from "flowbite-react";
 
 export default function DataTable() {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
   const [showAddGuestModal, setShowAddGuestModal] = useState(false);
 
-  const [displayedGuests, setDisplayedGuests] = useState<Guest[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const guests = useGuests((state) => state.guests);
 
+  const [displayedGuests, setDisplayedGuests] = useState<Guest[]>([]);
+
+  const refreshGuests = () => {
+    setIsLoading(true);
+    fetch(
+      `https://${useHotelSystem.getState().subdomain}.putboot.dev/api/guests`,
+      {
+        cache: "no-store",
+      }
+    )
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json.data);
+        useGuests.setState({ guests: json.data });
+        setIsLoading(false);
+      });
+  };
+
   useEffect(() => {
+    console.log("guests: ", guests);
+    console.log("displayed guests: ", displayedGuests);
     setDisplayedGuests(guests);
-  }, [guests]);
+    setIsLoading(false);
+  }, [guests, displayedGuests]);
 
   const handleRowSelect = (guestId: number) => {
     if (selectedRows.includes(guestId)) {
@@ -64,6 +86,8 @@ export default function DataTable() {
         method: "DELETE",
       });
     }
+    refreshGuests();
+    setSelectedRows([]);
   }
 
   return (
@@ -78,6 +102,9 @@ export default function DataTable() {
           />
         </div>
         <div className="flex pr-5">
+          <button className="btn bg-gray-500 mr-3" onClick={refreshGuests}>
+            Refresh Guests
+          </button>
           {selectedRows.length === 0 && (
             <button
               onClick={() => setShowAddGuestModal(true)}
@@ -101,11 +128,12 @@ export default function DataTable() {
         <AddGuestModal
           open={showAddGuestModal}
           setOpen={setShowAddGuestModal}
+          refreshData={refreshGuests}
         />
       </div>
       <div className="w-full p-4 pr-10">
-        <div className="overflow-x-auto w-full rounded-lg">
-          <table className="w-full table-auto table ">
+        <div className="overflow-x-auto w-full rounded-lg overflow-y-hidden">
+          <table className="w-full table-auto table">
             <thead className="text-slate-700 font-normal">
               <tr
                 className={`
@@ -131,29 +159,37 @@ export default function DataTable() {
               </tr>
             </thead>
             <tbody>
-              {displayedGuests?.map((guest) => (
-                <tr
-                  key={guest.id}
-                  className={`
+              {isLoading ? (
+                <tr>
+                  <td colSpan={5} className="text-center text-sm">
+                    <Spinner aria-label="Guests loading..." />
+                  </td>
+                </tr>
+              ) : (
+                displayedGuests?.map((guest) => (
+                  <tr
+                    key={guest.id}
+                    className={`
                 ${selectedRows.includes(guest.id) && "bg-gray-100"}
                   border-dashed border-t border-slate-200
               `}
-                >
-                  <TableCell>
-                    <input
-                      type="checkbox"
-                      checked={selectedRows.includes(guest.id)}
-                      onChange={() => handleRowSelect(guest.id)}
-                      className="checkbox"
-                    />
-                  </TableCell>
-                  <TableCell>{guest.name}</TableCell>
-                  <TableCell>{guest.email}</TableCell>
-                  <TableCell>{guest.address}</TableCell>
-                  <TableCell>{guest.id_number}</TableCell>
-                </tr>
-              ))}
-              {displayedGuests?.length === 0 && (
+                  >
+                    <TableCell>
+                      <input
+                        type="checkbox"
+                        checked={selectedRows.includes(guest.id)}
+                        onChange={() => handleRowSelect(guest.id)}
+                        className="checkbox"
+                      />
+                    </TableCell>
+                    <TableCell>{guest.name}</TableCell>
+                    <TableCell>{guest.email}</TableCell>
+                    <TableCell>{guest.address}</TableCell>
+                    <TableCell>{guest.id_number}</TableCell>
+                  </tr>
+                ))
+              )}
+              {displayedGuests?.length === 0 && !isLoading && (
                 <tr>
                   <td colSpan={5} className="text-center text-sm">
                     No guests found

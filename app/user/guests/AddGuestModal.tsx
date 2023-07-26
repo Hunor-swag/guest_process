@@ -11,9 +11,10 @@ import { FormEvent, useEffect, useRef, useState, useContext } from "react";
 type Props = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  refreshData: () => void;
 };
 
-export default function AddGuestModal({ open, setOpen }: Props) {
+export default function AddGuestModal({ open, setOpen, refreshData }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const subdomain = useHotelSystem.getState().subdomain;
@@ -62,13 +63,13 @@ export default function AddGuestModal({ open, setOpen }: Props) {
         },
       });
 
-      useGuests.getState().addGuest({
-        name: values.name,
-        email: values.email,
-        address: values.address,
-        id_number: values.id_number,
-      } as Guest);
-
+      // useGuests.getState().addGuest({
+      //   name: values.name,
+      //   email: values.email,
+      //   address: values.address,
+      //   id_number: values.id_number,
+      // } as Guest);
+      refreshData();
       resetForm();
     } catch (error) {
       console.error("An error occurred:", error);

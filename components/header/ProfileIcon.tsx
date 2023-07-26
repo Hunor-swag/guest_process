@@ -7,12 +7,12 @@ import React, { useState } from "react";
 import LanguageSelectorMenu from "../language/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
 import { signOut } from "next-auth/react";
-import { useGlobalContext } from "@/components/context/GlobalContextExports";
 import { redirect, useRouter } from "next/navigation";
+import { useHotelSystem } from "@/store/store";
 
 function ProfileIcon() {
   const dict = useDictionary();
-  const context = useGlobalContext();
+  const subdomain = useHotelSystem.getState().subdomain;
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const handleMouseEnter = () => {
@@ -60,9 +60,7 @@ function ProfileIcon() {
               signOut({
                 redirect: false,
               });
-              router.push(
-                `https://${context?.hotel_object?.subdomain}.putboot.dev`
-              );
+              router.push(`https://${subdomain}.putboot.dev`);
             }}
           >
             <li>{dict.userHeader.signOut}</li>

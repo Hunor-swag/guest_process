@@ -14,14 +14,12 @@ function Home() {
   useEffect(() => {
     if (session) {
       router.push("/user");
+    } else {
+      router.push("/auth/sign-in");
     }
   }, []);
 
-  return (
-    <div>
-      <h1>{subdomain}</h1>
-    </div>
-  );
+  return <div></div>;
 }
 
 export default Home;
