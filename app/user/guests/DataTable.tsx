@@ -184,7 +184,7 @@ export default function DataTable() {
                 <TableHeader>Email</TableHeader>
                 <TableHeader>Address</TableHeader>
                 <TableHeader>ID Number</TableHeader>
-                <TableHeader>{""}</TableHeader>
+                {/* <TableHeader>{""}</TableHeader> */}
               </tr>
             </thead>
             <tbody>
@@ -215,7 +215,7 @@ export default function DataTable() {
                     <TableCell>{guest.email}</TableCell>
                     <TableCell>{guest.address}</TableCell>
                     <TableCell>{guest.id_number}</TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <div className="flex justify-end items-center space-x-2 w-full">
                         <button
                           onClick={handleEditGuest}
@@ -230,7 +230,7 @@ export default function DataTable() {
                           <TrashIcon className="w-6 h-6" />
                         </button>
                       </div>
-                    </TableCell>
+                    </TableCell> */}
                   </tr>
                 ))
               )}
