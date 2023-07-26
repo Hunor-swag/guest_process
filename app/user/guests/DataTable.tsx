@@ -5,9 +5,10 @@ import TableCell from "./TableCell";
 import TableHeader from "./TableHeader";
 import { useState, useEffect } from "react";
 import AddGuestModal from "./AddGuestModal";
-import { PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import { useGuests, useHotelSystem } from "@/store/store";
 import { Spinner } from "flowbite-react";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 export default function DataTable() {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
@@ -111,18 +112,15 @@ export default function DataTable() {
           {selectedRows.length === 0 && (
             <button
               onClick={() => setShowAddGuestModal(true)}
-              className="btn h-10 flex items-center space-x-2"
+              className="bg-slate-100 p-2 rounded-xl hover:bg-slate-200 text-slate-500 transition-all duration-100"
             >
-              <div className="w-6 h-6">
-                <PlusCircleIcon />
-              </div>
-              <div>Add Guest</div>
+              <PlusIcon className="w-6 h-6" />
             </button>
           )}
           {selectedRows.length > 0 && (
             <button
               onClick={() => deleteGuests(selectedRows)}
-              className="btn h-10 flex items-center space-x-2 bg-red-600 text-gray-600 hover:bg-red-500"
+              className="p-2 rounded-xl bg-red-400 text-gray-600 hover:bg-red-500"
             >
               <TrashIcon className="w-6 h-6" />
             </button>
