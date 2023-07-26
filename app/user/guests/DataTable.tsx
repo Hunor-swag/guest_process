@@ -108,9 +108,6 @@ export default function DataTable() {
           />
         </div>
         <div className="flex pr-5">
-          <button className="btn bg-gray-500 mr-3" onClick={refreshGuests}>
-            Refresh Guests
-          </button>
           {selectedRows.length === 0 && (
             <button
               onClick={() => setShowAddGuestModal(true)}
