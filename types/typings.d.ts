@@ -7,8 +7,15 @@ export type Guest = {
   id: number;
   name: string;
   email: string;
-  address: string;
-  id_number: string;
+  address: Address;
+};
+
+export type Address = {
+  country: string;
+  postal_code: string;
+  city: string;
+  street: string;
+  number: string;
 };
 
 export type User = {

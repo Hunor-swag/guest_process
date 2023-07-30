@@ -10,6 +10,7 @@ import { useGuests, useHotelSystem } from "@/store/store";
 import { Spinner } from "flowbite-react";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import EditGuestModal from "./EditGuestModal";
+import { parseAddress } from "@/functions/parseAddress";
 
 export default function DataTable() {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
@@ -183,8 +184,6 @@ export default function DataTable() {
                 <TableHeader>Name</TableHeader>
                 <TableHeader>Email</TableHeader>
                 <TableHeader>Address</TableHeader>
-                <TableHeader>ID Number</TableHeader>
-                {/* <TableHeader>{""}</TableHeader> */}
               </tr>
             </thead>
             <tbody>
@@ -213,24 +212,7 @@ export default function DataTable() {
                     </TableCell>
                     <TableCell>{guest.name}</TableCell>
                     <TableCell>{guest.email}</TableCell>
-                    <TableCell>{guest.address}</TableCell>
-                    <TableCell>{guest.id_number}</TableCell>
-                    {/* <TableCell>
-                      <div className="flex justify-end items-center space-x-2 w-full">
-                        <button
-                          onClick={handleEditGuest}
-                          className="bg-slate-200 p-2 rounded-xl hover:bg-slate-300 text-slate-600 transition-all duration-100 mr-2"
-                        >
-                          <PencilIcon className="w-6 h-6 bg-" />
-                        </button>
-                        <button
-                          onClick={() => deleteGuests(selectedRows)}
-                          className="p-2 rounded-xl bg-red-400 text-gray-600 hover:bg-red-500"
-                        >
-                          <TrashIcon className="w-6 h-6" />
-                        </button>
-                      </div>
-                    </TableCell> */}
+                    <TableCell>{parseAddress(guest.address)}</TableCell>
                   </tr>
                 ))
               )}

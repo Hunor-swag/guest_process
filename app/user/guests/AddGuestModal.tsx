@@ -24,8 +24,11 @@ export default function AddGuestModal({ open, setOpen, refreshData }: Props) {
   const [values, setValues] = useState({
     name: "",
     email: "",
-    address: "",
-    id_number: "",
+    country: "",
+    postal_code: "",
+    city: "",
+    street: "",
+    number: "",
   });
 
   useEffect(() => {
@@ -80,8 +83,11 @@ export default function AddGuestModal({ open, setOpen, refreshData }: Props) {
     setValues({
       name: "",
       email: "",
-      address: "",
-      id_number: "",
+      country: "",
+      postal_code: "",
+      city: "",
+      street: "",
+      number: "",
     });
   };
 
@@ -121,14 +127,29 @@ export default function AddGuestModal({ open, setOpen, refreshData }: Props) {
             value={values.email}
           />
           <InputWithLabel
-            name="Address"
-            onChange={(e) => handleInputChange(e, "address")}
-            value={values.address}
+            name="Country"
+            onChange={(e) => handleInputChange(e, "country")}
+            value={values.country}
           />
           <InputWithLabel
-            name="ID Number"
-            onChange={(e) => handleInputChange(e, "id_number")}
-            value={values.id_number}
+            name="Postal Code"
+            onChange={(e) => handleInputChange(e, "postal_code")}
+            value={values.postal_code}
+          />
+          <InputWithLabel
+            name="City"
+            onChange={(e) => handleInputChange(e, "city")}
+            value={values.city}
+          />
+          <InputWithLabel
+            name="Street"
+            onChange={(e) => handleInputChange(e, "street")}
+            value={values.street}
+          />
+          <InputWithLabel
+            name="Number"
+            onChange={(e) => handleInputChange(e, "number")}
+            value={values.number}
           />
         </PanelForm>
       </dialog>
