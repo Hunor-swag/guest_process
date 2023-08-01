@@ -3,7 +3,7 @@
 import InputWithLabel from "@/components/InputWithLabel";
 import PanelForm from "@/components/PanelForm";
 import { useHotelSystem, useGuests } from "@/store/store";
-import { Guest } from "@/types/typings";
+import { Address, Guest } from "@/types/typings";
 import { revalidateTag } from "next/cache";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
@@ -29,8 +29,20 @@ export default function EditGuestModal({
     id: guestData ? guestData.id : 0,
     name: guestData ? guestData.name : "",
     email: guestData ? guestData.email : "",
-    address: guestData ? guestData.address : "",
-    id_number: guestData ? guestData.id_number : "",
+    address: guestData
+      ? guestData.address
+      : {
+          country: "",
+          postal_code: "",
+          city: "",
+          street: "",
+          number: "",
+        },
+    // country: guestData ? guestData.address.country : "",
+    // postal_code: guestData ? guestData.address.postal_code : "",
+    // city: guestData ? guestData.address.city : "",
+    // street: guestData ? guestData.address.street : "",
+    // number: guestData ? guestData.address.number : "",
   });
 
   useEffect(() => {
@@ -87,8 +99,13 @@ export default function EditGuestModal({
       id: 0,
       name: "",
       email: "",
-      address: "",
-      id_number: "",
+      address: {
+        country: "",
+        postal_code: "",
+        city: "",
+        street: "",
+        number: "",
+      },
     });
   };
 
@@ -128,14 +145,32 @@ export default function EditGuestModal({
             value={values.email}
           />
           <InputWithLabel
-            name="Address"
-            onChange={(e) => handleInputChange(e, "address")}
-            value={values.address}
+            name="Country"
+            onChange={(e) => handleInputChange(e, "address.country")}
+            value={values.address.country}
           />
           <InputWithLabel
-            name="ID Number"
-            onChange={(e) => handleInputChange(e, "id_number")}
-            value={values.id_number}
+            name="Postal Code"
+            onChange={(e) => handleInputChange(e, "address.postal_code")}
+            value={values.address.postal_code}
+          />
+
+          <InputWithLabel
+            name="City"
+            onChange={(e) => handleInputChange(e, "address.city")}
+            value={values.address.city}
+          />
+
+          <InputWithLabel
+            name="Street"
+            onChange={(e) => handleInputChange(e, "address.street")}
+            value={values.address.street}
+          />
+
+          <InputWithLabel
+            name="Number"
+            onChange={(e) => handleInputChange(e, "address.number")}
+            value={values.address.number}
           />
         </PanelForm>
       </dialog>
