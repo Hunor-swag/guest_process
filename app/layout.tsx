@@ -13,12 +13,12 @@ async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
-        {/* <h1>hello</h1> */}
-        <GlobalContextProvider>
-          <NextAuthProvider session={session}>
-            <HotelSystemProvider>{children}</HotelSystemProvider>
-          </NextAuthProvider>
-        </GlobalContextProvider>
+        <h1>hello</h1>
+        {/* <GlobalContextProvider> */}
+        {/* <NextAuthProvider session={session}>
+          <HotelSystemProvider>{children}</HotelSystemProvider>
+        </NextAuthProvider> */}
+        {/* </GlobalContextProvider> */}
       </body>
     </html>
   );
