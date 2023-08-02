@@ -1,26 +1,25 @@
 "use client";
 
-import SystemNotFound from "@/components/SystemNotFound";
-import { useGlobalContext } from "@/components/context/GlobalContextProvider";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useHotelSystem } from "@/store/store";
 
 function Home() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  // useEffect(() => {
-  //   if (session) {
-  //     router.push("/user");
-  //   }
-  // }, []);
+  const { subdomain } = useHotelSystem();
 
-  return (
-    <div>
-      <h1>hello</h1>
-    </div>
-  );
+  useEffect(() => {
+    if (session) {
+      router.push("/user");
+    } else {
+      router.push("/auth/sign-in");
+    }
+  }, []);
+
+  return <div></div>;
 }
 
 export default Home;

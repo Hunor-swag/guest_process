@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     // console.log(db_name);
 
-    const queryString = "SELECT * FROM guests";
+    const queryString = "SELECT * FROM guests WHERE hidden='0'";
     const results = (await query(db_name, queryString, [])) as [];
 
     let json_response = {
@@ -54,15 +54,19 @@ export async function POST(req: NextRequest) {
     const db_name = subdomain?.replace(/-/g, "_");
 
     const queryString =
-      "INSERT INTO guests (name, email, address, id_number) VALUES (?, ?, ?, ?)";
+      "INSERT INTO guests (name, email, country, postal_code, city, street, number) VALUES (?, ?, ?, ?)";
 
-    const { name, email, address, id_number } = await req.json();
+    const { name, email, country, postal_code, city, street, number } =
+      await req.json();
 
     const results = (await query(db_name, queryString, [
       name,
       email,
-      address,
-      id_number,
+      country,
+      postal_code,
+      city,
+      street,
+      number,
     ])) as [];
 
     return new NextResponse(JSON.stringify(results), {

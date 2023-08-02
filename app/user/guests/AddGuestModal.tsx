@@ -1,10 +1,12 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
-import PanelForm from "../PanelForm";
-import InputWithLabel from "../InputWithLabel";
+import InputWithLabel from "@/components/InputWithLabel";
+import PanelForm from "@/components/PanelForm";
+import { useGuests, useHotelSystem } from "@/store/store";
+import { Guest } from "@/types/typings";
+import { revalidateTag } from "next/cache";
 import { useRouter } from "next/navigation";
-import { useGlobalContext } from "../context/GlobalContextProvider";
+import { FormEvent, useEffect, useRef, useState, useContext } from "react";
 
 type Props = {
   open: boolean;
@@ -12,18 +14,21 @@ type Props = {
   refreshData: () => void;
 };
 
-function AddGuestModal({ open, setOpen, refreshData }: Props) {
+export default function AddGuestModal({ open, setOpen, refreshData }: Props) {
   const modalRef = useRef<HTMLDialogElement>(null);
 
-  const context = useGlobalContext();
+  const subdomain = useHotelSystem.getState().subdomain;
 
   const router = useRouter();
 
   const [values, setValues] = useState({
     name: "",
     email: "",
-    address: "",
-    id_number: "",
+    country: "",
+    postal_code: "",
+    city: "",
+    street: "",
+    number: "",
   });
 
   useEffect(() => {
@@ -40,33 +45,35 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
     setValues({ ...values, [name]: e.target.value });
   };
 
+  // const refreshData = () => {
+  //   fetch(`https://${subdomain}.putboot.dev/api/guests`).then(() => {
+  //     revalidateTag("guests");
+  //   });
+  // };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      if (
-        !context ||
-        !context.hotel_object ||
-        !context.hotel_object.subdomain
-      ) {
-        console.error("No context or hotel object found");
+      if (!subdomain) {
+        console.error("Cannot get subdomain");
         return;
       }
-      console.log(
-        `url that i think is good now: https://${context.hotel_object.subdomain}.putboot.dev/api/guests`
-      );
-      await fetch(
-        `https://${context.hotel_object.subdomain}.putboot.dev/api/guests`,
-        {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      resetForm();
-      router.refresh();
+      await fetch(`https://${subdomain}.putboot.dev/api/guests`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // useGuests.getState().addGuest({
+      //   name: values.name,
+      //   email: values.email,
+      //   address: values.address,
+      //   id_number: values.id_number,
+      // } as Guest);
       refreshData();
+      resetForm();
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -76,8 +83,11 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
     setValues({
       name: "",
       email: "",
-      address: "",
-      id_number: "",
+      country: "",
+      postal_code: "",
+      city: "",
+      street: "",
+      number: "",
     });
   };
 
@@ -117,19 +127,32 @@ function AddGuestModal({ open, setOpen, refreshData }: Props) {
             value={values.email}
           />
           <InputWithLabel
-            name="Address"
-            onChange={(e) => handleInputChange(e, "address")}
-            value={values.address}
+            name="Country"
+            onChange={(e) => handleInputChange(e, "country")}
+            value={values.country}
           />
           <InputWithLabel
-            name="ID Number"
-            onChange={(e) => handleInputChange(e, "id_number")}
-            value={values.id_number}
+            name="Postal Code"
+            onChange={(e) => handleInputChange(e, "postal_code")}
+            value={values.postal_code}
+          />
+          <InputWithLabel
+            name="City"
+            onChange={(e) => handleInputChange(e, "city")}
+            value={values.city}
+          />
+          <InputWithLabel
+            name="Street"
+            onChange={(e) => handleInputChange(e, "street")}
+            value={values.street}
+          />
+          <InputWithLabel
+            name="Number"
+            onChange={(e) => handleInputChange(e, "number")}
+            value={values.number}
           />
         </PanelForm>
       </dialog>
     </>
   );
 }
-
-export default AddGuestModal;

@@ -42,7 +42,7 @@ export default function MobileSidebar() {
       <div
         ref={barsIconDivRef}
         id="mobile-sidebar-toggle"
-        className="fixed z-20 top-4 left-4 lg:hidden w-8 h-8 text-gray-400"
+        className="flex justify-center items-center fixed z-20 top-4 left-4 lg:hidden w-8 h-8 text-gray-400"
       >
         <Bars3Icon
           className="w-8 h-8 cursor-pointer"

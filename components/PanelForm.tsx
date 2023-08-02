@@ -12,7 +12,7 @@ type Props = {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
-function PanelForm({
+export default function PanelForm({
   width,
   height,
   bgcolor,
@@ -45,5 +45,3 @@ function PanelForm({
     </form>
   );
 }
-
-export default PanelForm;

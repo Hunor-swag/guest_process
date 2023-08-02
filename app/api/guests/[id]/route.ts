@@ -84,7 +84,7 @@ export async function DELETE(
 
     const db_name = subdomain?.replace(/-/g, "_");
 
-    const queryString = `DELETE FROM guests WHERE id=${params.id}`;
+    const queryString = `UPDATE guests SET hidden='1' WHERE id=${params.id}`;
 
     const result = await query(db_name, queryString, []);
 

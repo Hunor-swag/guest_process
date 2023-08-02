@@ -29,7 +29,7 @@ export default function SidebarMenu({
       />
       <SidebarItem
         Icon={BookOpenIcon}
-        href="/user/guests_data"
+        href="/user/guests"
         showText={showSidebar}
         text={dict.userSidebar.guests}
         toggleMobileSidebar={toggleMobileSidebar}

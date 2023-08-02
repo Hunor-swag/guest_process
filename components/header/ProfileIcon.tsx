@@ -7,12 +7,12 @@ import React, { useState } from "react";
 import LanguageSelectorMenu from "../language/LanguageSelectorMenu";
 import useDictionary from "@/hooks/useDictionary";
 import { signOut } from "next-auth/react";
-import { useGlobalContext } from "../context/GlobalContextProvider";
 import { redirect, useRouter } from "next/navigation";
+import { useHotelSystem } from "@/store/store";
 
 function ProfileIcon() {
   const dict = useDictionary();
-  const context = useGlobalContext();
+  const subdomain = useHotelSystem.getState().subdomain;
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const handleMouseEnter = () => {
@@ -56,13 +56,11 @@ function ProfileIcon() {
           </Link>
           <button
             className="hover:text-[#009ef7]"
-            onClick={() => {
-              signOut({
+            onClick={async () => {
+              await signOut({
                 redirect: false,
               });
-              router.push(
-                `https://${context?.hotel_object?.subdomain}.putboot.dev`
-              );
+              router.push(`https://${subdomain}.putboot.dev/auth/sign-in`);
             }}
           >
             <li>{dict.userHeader.signOut}</li>

@@ -8,9 +8,9 @@ type Props = {
   autoFocus?: boolean;
 };
 
-function InputWithLabel({
+export default function InputWithLabel({
   name,
-  value,
+  value = "",
   onChange,
   autoFocus = false,
   placeholder,
@@ -29,5 +29,3 @@ function InputWithLabel({
     </div>
   );
 }
-
-export default InputWithLabel;
